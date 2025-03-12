@@ -9,7 +9,7 @@ def get_base64_from_file(file_path):
         return base64.b64encode(f.read()).decode()
 
 # Encode background image
-bg_image = get_base64_from_file("C:/Career_website/TWFlogo.jpg")
+bg_image = get_base64_from_file("logo.jpg")
 
 def apply_custom_css():
     st.markdown(

@@ -4,7 +4,7 @@ import hashlib
 
 # Initialize SQLite database
 def init_db():
-    conn = sqlite3.connect('TWF.db')
+    conn = sqlite3.connect('streamlit\TWF.db')
     c = conn.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS users
                  (fullname TEXT, email TEXT PRIMARY KEY, age INTEGER, password TEXT)''')
@@ -17,7 +17,7 @@ def make_hashed_password(password):
 
 # Check login credentials
 def login_user(email, password):
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect('streamlit\TWF.db')
     c = conn.cursor()
     
     hashed_password = make_hashed_password(password)
@@ -28,7 +28,7 @@ def login_user(email, password):
 
 # Add new user
 def signup_user(fullname, email, age, password):
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect('streamlit\TWF.db')
     c = conn.cursor()
     
     hashed_password = make_hashed_password(password)
