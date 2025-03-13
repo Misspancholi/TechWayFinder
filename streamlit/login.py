@@ -31,10 +31,10 @@ def signup_user(fullname, email, age, password):
     conn = sqlite3.connect('streamlit\TWF.db')
     c = conn.cursor()
     
-    hashed_password = make_hashed_password(password)
+    password = make_hashed_password(password)
     try:
         c.execute('INSERT INTO users (fullname, email, age, password) VALUES (?, ?, ?, ?)',
-                 (fullname, email, age, hashed_password))
+                 (fullname, email, age, password))
         conn.commit()
         conn.close()
         return True

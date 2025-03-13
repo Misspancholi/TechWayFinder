@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import base64
+import time
 
 # Function to encode image
 @st.cache_data
@@ -13,20 +14,13 @@ bg_image = get_base64_from_file("logo.jpg")
 
 def apply_custom_css():
     st.markdown(
-        f"""
+        """
         <style>
-            .main-bg {{
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: url('data:image/jpeg;base64,{bg_image}') no-repeat center center fixed;
-                background-size: cover;
-                z-index: -1;
-                filter: blur(5px);
-            }}
-            .navbar {{
+            body {
+                background-color: indigo;
+                font-family: Arial, sans-serif;
+            }
+            .navbar {
                 background-color: rgba(0, 0, 0, 0.8);
                 padding: 15px;
                 text-align: center;
@@ -35,8 +29,8 @@ def apply_custom_css():
                 font-weight: bold;
                 border-radius: 10px;
                 box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-            }}
-            .content-container {{
+            }
+            .content-container {
                 text-align: center;
                 max-width: 600px;
                 margin: auto;
@@ -44,24 +38,32 @@ def apply_custom_css():
                 background-color: rgba(255, 255, 255, 0.9);
                 border-radius: 10px;
                 box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
-            }}
-            .stButton>button {{
-                background-color: #4CAF50;
-                color: white;
+            }
+            .stButton>button {
+                background-color: #E0B0FF;
+                color: black;
                 font-size: 18px;
                 padding: 12px;
                 border-radius: 10px;
                 border: none;
                 cursor: pointer;
+                width: 100%;
+                margin-top: 10px;
                 transition: transform 0.2s, background-color 0.3s, box-shadow 0.3s;
-            }}
-            .stButton>button:hover {{
-                background-color: #45a049;
+            }
+            .stButton>button:hover {
+                background-color: #E0B0FF;
                 transform: scale(1.05);
                 box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-            }}
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+            .fade-in {
+                animation: fadeIn 2s ease-in-out;
+            }
         </style>
-        <div class='main-bg'></div>
         """,
         unsafe_allow_html=True,
     )
@@ -70,12 +72,23 @@ apply_custom_css()
 
 # Initialize session state
 if "page" not in st.session_state:
+    st.session_state.page = "intro"
+
+# Intro Animation Page
+if st.session_state.page == "intro":
+    st.markdown(f"""
+         <div style='display: flex; justify-content: center; align-items: center; height: 100vh;' class='fade-in'>
+            <img src='data:image/jpeg;base64,{logo_image}' style='width: 100%; max-width: 700px;'>
+        </div>
+    """, unsafe_allow_html=True)
+    time.sleep(2)  # Show logo for 2 seconds
     st.session_state.page = "login"
+    st.rerun()
 
 # Login Page
-if st.session_state.page == "login":
+elif st.session_state.page == "login":
+    st.markdown("<div class='navbar'>🔐 Login Page</div>", unsafe_allow_html=True)
     st.markdown("<div class='content-container'>", unsafe_allow_html=True)
-    st.title("🔐 Login Page")
     username = st.text_input("Username", placeholder="Enter your username")
     password = st.text_input("Password", type="password", placeholder="Enter your password")
     
@@ -88,30 +101,26 @@ if st.session_state.page == "login":
             st.error("Invalid username or password")
     st.markdown("</div>", unsafe_allow_html=True)
 
+
 # Main Dashboard
 elif st.session_state.page == "index":
     st.markdown("<div class='navbar'>🌟 Welcome to the Dashboard</div>", unsafe_allow_html=True)
-    st.markdown("<div class='content-container'>", unsafe_allow_html=True)
+    #st.markdown("<div class='content-container'>", unsafe_allow_html=True)
     st.subheader("Select an Option")
     
-    col1, col2, col3,col4 = st.columns(4)
-    with col1:
-        if st.button("Quiz"):
-            st.session_state.page = "quiz"
-            st.rerun()
-    with col2:
-        if st.button("Quiz Results"):
-            st.session_state.page = "results"
-            st.rerun()
-    with col3:
-        if st.button("Chatbot"):
-            st.session_state.page = "chatbot"
-            st.rerun()
-    with col4:
-        if st.button("Logout"):
-            st.session_state.page = "login"
-            st.session_state.authenticated = False
-            st.rerun()
+    if st.button("Quiz"):
+        st.session_state.page = "quiz"
+        st.rerun()
+    if st.button("Quiz Results"):
+        st.session_state.page = "results"
+        st.rerun()
+    if st.button("Chatbot"):
+        st.session_state.page = "chatbot"
+        st.rerun()
+    if st.button("Logout"):
+        st.session_state.page = "login"
+        st.session_state.authenticated = False
+        st.rerun()
     st.markdown("</div>", unsafe_allow_html=True)
 
 # Quiz Page
@@ -119,7 +128,7 @@ elif st.session_state.page == "quiz":
     st.markdown("<div class='navbar'>📊 Take Quiz</div>", unsafe_allow_html=True)
     st.markdown("<div class='content-container'>", unsafe_allow_html=True)
     st.subheader("Retake Quiz")
-    if "quiz_results" in st.session_state:
+    if "question   " in st.session_state:
         df = pd.DataFrame(st.session_state["quiz"], columns=["Question", "Your Answer", "Correct Answer", "Result"])
         st.table(df)
     else:
@@ -128,6 +137,7 @@ elif st.session_state.page == "quiz":
         st.session_state.page = "index"
         st.rerun()
     st.markdown("</div>", unsafe_allow_html=True)
+
 
 # Quiz Results Page
 elif st.session_state.page == "results":
