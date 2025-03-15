@@ -82,18 +82,28 @@ def login_user(email, password):
     conn.close()
     print(user)
     if user:
-        st.session_state.user_id = user[1]
+        st.session_state.user_id = user[0]
         st.success("Authenticated")
         st.session_state.page = "index"
         st.session_state.authenticated = True
-        st.session_state.user_id = user[0]
         st.session_state.user_name = user[3]
     else:
         print("Not Authenticated")
         st.error("Invalid username or password")
         st.session_state.authenticated = False
 
-
+def signup_user(name, email, age, password):
+    hashed_password = get_hashed_password(password)
+    conn = sqlite3.connect(db_path)  # Update this line with the correct path
+    c = conn.cursor()
+    try:
+        c.execute('INSERT INTO users (name, email, age, password) VALUES (?, ?, ?, ?)', (name, email, age, hashed_password))
+        conn.commit()
+        conn.close()
+        st.success("User created successfully")
+    except sqlite3.IntegrityError:
+        conn.close()
+        st.error("User already exists")
 
 apply_custom_css()
 
@@ -114,21 +124,39 @@ if st.session_state.page == "intro":
 
 # Login Page
 elif st.session_state.page == "login":
-    st.markdown("<div class='navbar'>🔐 Login Page</div>", unsafe_allow_html=True)
-    st.markdown("<div class='content-container'>", unsafe_allow_html=True)
-    login_email = st.text_input("email", placeholder="Enter your username").strip()
-    login_password = st.text_input("Password", type="password", placeholder="Enter your password").strip()
-    
-    if st.button("Login"):
-        # st.session_state.page = "index"
-        if login_email == "" and login_password == "":
-           st.error("please fill in all fields")
-        else:
-            login_user(login_email, login_password)    
-            if st.session_state.authenticated:
-                st.success("Login Successful")
-                st.rerun()        
-    st.markdown("</div>", unsafe_allow_html=True)
+    tab1, tab2 = st.tabs(["Login", "Sign Up"])
+    with tab1:
+        st.markdown("<div class='navbar'>🔐 Login Page</div>", unsafe_allow_html=True)
+        st.markdown("<div class='content-container'>", unsafe_allow_html=True)
+        login_email = st.text_input("email", placeholder="Enter your username").strip()
+        login_password = st.text_input("Password", type="password", placeholder="Enter your password").strip()
+        
+        if st.button("Login"):
+            # st.session_state.page = "index"
+            if login_email == "" and login_password == "":
+                st.error("please fill in all fields")
+            else:
+                login_user(login_email, login_password)    
+                if st.session_state.authenticated:
+                    st.success("Login Successful")
+                    st.rerun()        
+        st.markdown("</div>", unsafe_allow_html=True)
+    with tab2:
+        st.markdown("<div class='navbar'>🔐 Sign Up Page</div>", unsafe_allow_html=True)
+        st.markdown("<div class='content-container'>", unsafe_allow_html=True)
+        new_fullname = st.text_input("Full Name", key="signup_fullname").strip()
+        new_email = st.text_input("Email Address", key="signup_email").strip()
+        new_age = st.number_input("Age", min_value=0, max_value=120, key="signup_age")
+        new_password = st.text_input("Password", type="password", key="signup_password").strip()
+        confirm_password = st.text_input("Confirm Password", type="password", key="signup_confirm_password").strip()
+        if st.button('Sign up'):
+            if (new_fullname=="" or new_email=="" or new_password=="" or confirm_password==""):
+                st.error("Please fill in all fields")
+            elif new_password != confirm_password:
+                st.error("passwords does not match")
+            else:
+                signup_user(new_fullname, new_email, new_age, new_password)
+
 
 
 # Main Dashboard
@@ -165,12 +193,9 @@ elif st.session_state.page == "quiz":
 elif st.session_state.page == "results":
     st.markdown("<div class='navbar'>📊 Quiz Results</div>", unsafe_allow_html=True)
     st.markdown("<div class='content-container'>", unsafe_allow_html=True)
-    st.subheader("Your Performance")
-    if "quiz_results" in st.session_state:
-        df = pd.DataFrame(st.session_state["quiz_results"], columns=["Question", "Your Answer", "Correct Answer", "Result"])
-        st.table(df)
-    else:
-        st.write("No quiz results found. Please take the quiz first.")
+    st.subheader("Based on your Performance")
+    from temp.result import results
+    results()
     if st.button("Back to Dashboard"):
         st.session_state.page = "index"
         st.rerun()
