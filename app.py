@@ -182,7 +182,7 @@ elif st.session_state.page == "index":
 
 # Quiz Page
 elif st.session_state.page == "quiz":
-    from temp.quiz import display_quiz  # Update this line
+    from temp.quiz import display_quiz  
     display_quiz()
     if st.button("Back to Dashboard"):
         st.session_state.page = "index"
@@ -216,3 +216,4 @@ elif st.session_state.page == "chatbot":
         st.session_state.page = "index"
         st.rerun()
     st.markdown("</div>", unsafe_allow_html=True)
+print("app is finished", "\nst.session state =",st.session_state.page)
