@@ -203,17 +203,14 @@ elif st.session_state.page == "results":
 
 # Chatbot Page
 elif st.session_state.page == "chatbot":
-    st.markdown("<div class='navbar'>🤖 Chatbot</div>", unsafe_allow_html=True)
-    st.markdown("<div class='content-container'>", unsafe_allow_html=True)
     st.subheader("Ask me anything!")
-    user_input = st.text_input("You:", "", key="chat_input")
-    if st.button("Send"):
-        if user_input.strip():
-            st.write(f"**Bot:** I'm here to help with {user_input}!")
-        else:
-            st.warning("Please enter a message.")
-    if st.button("Back to Dashboard"):
+    from temp.chat import chatbot
+    chatbot()
+    dashbt = st.sidebar.button("Back to Dashboard")
+    if dashbt:
         st.session_state.page = "index"
+        # clearing messages without changing system role content
+        st.session_state.messages=[st.session_state.messages[0]]
+        
         st.rerun()
-    st.markdown("</div>", unsafe_allow_html=True)
 print("app is finished", "\nst.session state =",st.session_state.page)
