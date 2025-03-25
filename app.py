@@ -4,6 +4,9 @@ import base64
 import time
 import sqlite3
 import hashlib
+import os 
+import random
+
 # Function to encode image
 db_path = "temp/TWF.db"
 @st.cache_data
@@ -131,10 +134,19 @@ elif st.session_state.page == "login":
         login_email = st.text_input("email", placeholder="Enter your username").strip()
         login_password = st.text_input("Password", type="password", placeholder="Enter your password").strip()
         
+        # Captcha image show
+        if 'captcha_image_name' not in st.session_state:
+            image_files = [f for f in os.listdir('captcha') if f.endswith(('png',))] 
+            st.session_state.captcha_image_name = random.choice(image_files) # captcha image name
+        captcha_image = "captcha/" + st.session_state.captcha_image_name # captcha image path
+        st.image(captcha_image)
+        
+        # Add captcha input field
+        captcha_input = st.text_input("Enter Captcha", placeholder="Enter the text shown in image above").strip()
+        
         if st.button("Login"):
-            # st.session_state.page = "index"
-            if login_email == "" and login_password == "":
-                st.error("please fill in all fields")
+            if login_email == "" or login_password == "" or captcha_input == "":
+                st.error("Please fill in all fields")
             else:
                 login_user(login_email, login_password)    
                 if st.session_state.authenticated:

@@ -1,27 +1,11 @@
-import streamlit as st
-from langchain_openai.chat_models import ChatOpenAI
-import os
-from dotenv import load_dotenv
-load_dotenv()
+import os 
+import random
 
-st.title("🦜🔗 Quickstart App")
+# List all files in the folder (ensure they are images)
+image_files = [f for f in os.listdir('captcha') if f.endswith(('png',))] 
+captcha_image = random.choice(image_files)
 
-def generate_response(input_text):
-    model = ChatOpenAI(
-        base_url="https://api.together.xyz/v1",
-        model="meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
-        temperature=0.7,
-        api_key=os.getenv("together_api_key"), 
-        max_completion_tokens=10,
-        max_tokens=50
-    )
-    st.info(model.invoke(input_text).content)
-
-with st.form("my_form"):
-    text = st.text_area(
-        "Enter text:",
-        "What are the three key pieces of advice for learning how to code?",
-    )
-    submitted = st.form_submit_button("Submit")
-    if submitted and text:
-        generate_response(text)
+print(captcha_image)
+captcha_image = "captcha/" + captcha_image
+image= open(captcha_image, "rb")
+print(image)
