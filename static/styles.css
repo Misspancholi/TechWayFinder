@@ -1,0 +1,159 @@
+/* Style for containers */
+div[data-testid="stVerticalBlock"] {
+    background-color: #f0f2f6;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    margin: 10px 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Style for columns */
+div[data-testid="column"] {
+    background-color: white;
+    box-shadow: rgb(0 0 0 / 20%) 0px 2px 1px -1px,
+               rgb(0 0 0 / 14%) 0px 1px 1px 0px,
+               rgb(0 0 0 / 12%) 0px 1px 3px 0px;
+    border-radius: 15px;
+    padding: 1rem;
+    margin: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+/* Add hover effect to columns */
+div[data-testid="column"]:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Style for Streamlit buttons */
+.stButton > button {
+    width: 100%;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Hover effect for Streamlit buttons */
+.stButton > button:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Style for text inside columns */
+div[data-testid="column"] p {
+    color: #31333F;
+    font-size: 1rem;
+    text-align: center;
+    margin: 0;
+    padding: 10px;
+}
+
+/* Navigation bar style */
+.nav-bar {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    background-color: #333;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Navigation button style */
+.nav-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+    font-weight: 500;
+}
+
+/* Hover effect for navigation buttons */
+.nav-button:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Image container style */
+div[data-testid="column"] > div[data-testid="stImage"] {
+    transition: all 0.3s ease;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Hover effect for images */
+div[data-testid="column"] > div[data-testid="stImage"]:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* Header style */
+.stHeader {
+    text-align: center;
+    color: #333;
+    margin-bottom: 2rem;
+}
+
+/* Add animation for page transitions */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Apply animation to main content */
+div[data-testid="stVerticalBlock"] > div {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Style for links */
+a {
+    color: #4CAF50;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    color: #45a049;
+    text-decoration: underline;
+}
+
+/* Custom button style (if needed) */
+.custom-button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.custom-button:hover {
+    background-color: #45a049;
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
