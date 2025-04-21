@@ -51,19 +51,29 @@ if st.session_state.page == "intro":
 
 # Authentication Page
 elif st.session_state.page == "auth":
-    from pages.login_page import show_auth_page
+    from temp.login_page import show_auth_page
     show_auth_page()
 
 # Main Dashboard
 elif st.session_state.page == "index":
-    st.markdown("<div class='navbar'>🌟 Welcome to the Dashboard</div>", unsafe_allow_html=True)
+    st.markdown("<div class='navbar animated-text'>🌟 Welcome to CareerGeek</div>", unsafe_allow_html=True)
     
-    # Create three columns
-    col1, col2, col3 = st.columns(3)
+    # Welcome message with custom styling
+    st.markdown("""
+        <div style='text-align: center; margin: 20px 0;' class='animated-text'>
+            <h1 style='font-family: Montserrat, sans-serif; color: white; font-size: 2.5em; margin-bottom: 10px;'>
+                Hello, {}</h1>
+            <p style='font-family: Poppins, sans-serif; color: #E0B0FF; font-size: 1.2em;'>
+                Ready to explore your career path?</p>
+        </div>
+    """.format(st.session_state.get('user_name', 'Guest')), unsafe_allow_html=True)
+    
+    # Create four columns
+    col1, col2, col3, col4 = st.columns(4)
     
     with col1:
         st.markdown("""
-            <div class='dashboard-column'>
+            <div class='dashboard-column animated-text'>
                 <div class='image-container'>
                     <img src='data:image/png;base64,{}' class='dashboard-image' alt='Quiz'>
                 </div>
@@ -101,6 +111,20 @@ elif st.session_state.page == "index":
         """.format(get_base64_from_file("images/chatbot.png")), unsafe_allow_html=True)
         if st.button("Chatbot"):
             st.session_state.page = "chatbot"
+            st.rerun()
+    
+    with col4:
+        st.markdown("""
+            <div class='dashboard-column'>
+                <div class='image-container'>
+                    <img src='data:image/png;base64,{}' class='dashboard-image' alt='Roadmaps'>
+                </div>
+                <h3>Career Roadmaps</h3>
+                <p>Explore learning paths for different tech roles</p>
+            </div>
+        """.format(get_base64_from_file("images/roadmap.png")), unsafe_allow_html=True)
+        if st.button("Roadmaps"):
+            st.session_state.page = "roadmaps"
             st.rerun()
     
     # Logout button in a centered container
@@ -143,5 +167,13 @@ elif st.session_state.page == "chatbot":
         # clearing messages without changing system role content
         st.session_state.messages=[st.session_state.messages[0]]
         
+        st.rerun()
+
+# Roadmaps Page
+elif st.session_state.page == "roadmaps":
+    from temp.roadmaps import show_roadmaps
+    show_roadmaps()
+    if st.button("Back to Dashboard"):
+        st.session_state.page = "index"
         st.rerun()
 print("app is finished", "\nst.session state =",st.session_state.page)
