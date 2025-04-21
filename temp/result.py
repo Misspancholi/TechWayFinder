@@ -73,7 +73,7 @@ def results():
                 <div class='career-card'>
                     <div class='career-header'>
                         <h3>{medal} {career}</h3>
-                        <span class='percentage'>{percentage}% Match</span>
+                        <!--<span class='percentage'>{percentage}% Match</span> -->
                     </div>
                 </div>
             """, unsafe_allow_html=True)
