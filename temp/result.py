@@ -5,19 +5,23 @@ import sqlite3
 
 def get_roadmap_link(career):
     roadmap_links = {
-        "Frontend Developer": "https://roadmap.sh/frontend",
-        "Backend Developer": "https://roadmap.sh/backend",
-        "Full Stack Developer": "https://roadmap.sh/full-stack",
-        "DevOps Engineer": "https://roadmap.sh/devops",
+        "Software Developer": "https://roadmap.sh/full-stack",
+        "API Integration Specialist": "https://roadmap.sh/backend",
+        "Software Tester": "https://roadmap.sh/qa",
         "Data Scientist": "https://roadmap.sh/ai-data-scientist",
-        "Machine Learning Engineer": "https://roadmap.sh/ai-ml",
-        "Data Engineer": "https://roadmap.sh/data-engineer",
-        "Security Engineer": "https://roadmap.sh/cyber-security",
-        "Penetration Tester": "https://roadmap.sh/pen-tester",
-        "Security Analyst": "https://roadmap.sh/security-analyst",
-        "Cloud Engineer": "https://roadmap.sh/cloud-engineer",
-        "AWS Developer": "https://roadmap.sh/aws",
-        "Azure Developer": "https://roadmap.sh/azure"
+        "AI ML Specialist": "https://roadmap.sh/ai-data-scientist",
+        "Database Administrator": "https://roadmap.sh/postgresql-dba",
+        "Cyber Security Specialist": "https://roadmap.sh/cyber-security",
+        "Information Security Specialist": "https://roadmap.sh/cyber-security",
+        "Networking Engineer": "https://roadmap.sh/devops",
+        "Hardware Engineer": "https://roadmap.sh/computer-science",
+        "Project Manager": "https://roadmap.sh/project-manager",
+        "Business Analyst": "https://roadmap.sh/business-analyst",
+        "Technical Writer": "https://roadmap.sh/technical-writer",
+        "Application Support Engineer": "https://roadmap.sh/devops",
+        "Helpdesk Engineer": "https://roadmap.sh/devops",
+        "Customer Service Executive": "https://roadmap.sh/software-design-architecture",
+        "Graphics Designer": "https://roadmap.sh/design-system"
     }
     return roadmap_links.get(career, "#")
 
@@ -58,106 +62,124 @@ def results():
 
     if st.session_state.result_stage == "show":
         st.markdown("""
-            <div class='results-container'>
-                <h2>🎯 Your Career Match Results</h2>
-                <p class='subtitle'>Based on your responses, here are your top career matches:</p>
+            <div class='results-header'>
+                <h1>Your Career Match Results</h1>
+                <p>Based on your technical skills assessment, here are your recommended career paths:</p>
             </div>
         """, unsafe_allow_html=True)
 
-        # Display top 3 predictions with progress bars and roadmap links
-        for i, (career, probability) in enumerate(reversed(st.session_state.predictions)):
-            percentage = round(probability * 100, 1)
+        # Display top 3 predictions with roadmap links
+        for i, (career, _) in enumerate(reversed(st.session_state.predictions)):
             medal = "🥇" if i == 0 else "🥈" if i == 1 else "🥉"
+            roadmap_link = get_roadmap_link(career)
             
             st.markdown(f"""
                 <div class='career-card'>
-                    <div class='career-header'>
-                        <h3>{medal} {career}</h3>
-                        <!--<span class='percentage'>{percentage}% Match</span> -->
+                    <div class='career-content'>
+                        <h2>{medal} {career}</h2>
+                        <a href='{roadmap_link}' target='_blank' class='roadmap-button'>
+                            View Career Roadmap →
+                        </a>
                     </div>
                 </div>
             """, unsafe_allow_html=True)
-            
-            # Progress bar
-            st.progress(probability)
-            
-            # Roadmap button
-            roadmap_link = get_roadmap_link(career)
-            if st.button(f"📚 View {career} Roadmap", key=f"roadmap_{i}"):
-                st.markdown(f'<script>window.open("{roadmap_link}", "_blank");</script>', 
-                          unsafe_allow_html=True)
-                st.markdown(f"[Click here if the roadmap doesn't open automatically]({roadmap_link})")
-            
-            st.markdown("<br>", unsafe_allow_html=True)
 
-        # Add custom CSS
+        # Add custom CSS with improved color scheme
         st.markdown("""
             <style>
-            .results-container {
+            .results-header {
                 text-align: center;
-                margin-bottom: 2rem;
+                margin: 2rem 0;
+                padding: 2rem;
+                background: linear-gradient(135deg, rgba(108, 92, 231, 0.1), rgba(224, 176, 255, 0.1));
+                border-radius: 15px;
             }
-            .subtitle {
-                color: #888;
-                font-size: 1.1em;
-                margin-bottom: 2rem;
-            }
-            .career-card {
-                background-color: rgba(255, 255, 255, 0.1);
-                border-radius: 10px;
-                padding: 1rem;
+            
+            .results-header h1 {
+                color: #2D3748;
+                font-size: 2.5rem;
                 margin-bottom: 1rem;
-                transition: transform 0.3s ease;
             }
+            
+            .results-header p {
+                color: #4A5568;
+                font-size: 1.2rem;
+            }
+            
+            .career-card {
+                background: linear-gradient(135deg, #6c5ce7, #a78bfa);
+                border-radius: 15px;
+                padding: 1.5rem;
+                margin: 1.5rem 0;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            
             .career-card:hover {
                 transform: translateY(-5px);
+                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
             }
-            .career-header {
+            
+            .career-content {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                margin-bottom: 0.5rem;
+                flex-wrap: wrap;
+                gap: 1rem;
             }
-            .career-header h3 {
+            
+            .career-content h2 {
+                color: white;
                 margin: 0;
-                color: #E0B0FF;
+                font-size: 1.5rem;
             }
-            .percentage {
-                font-size: 1.2em;
-                font-weight: bold;
-                color: #4CAF50;
+            
+            .roadmap-button {
+                background: rgba(255, 255, 255, 0.2);
+                color: white;
+                padding: 0.75rem 1.5rem;
+                border-radius: 8px;
+                text-decoration: none;
+                transition: background 0.3s ease;
+                font-weight: 500;
+                display: inline-block;
             }
+            
+            .roadmap-button:hover {
+                background: rgba(255, 255, 255, 0.3);
+                color: white;
+            }
+            
             .loading-container {
                 text-align: center;
-                padding: 2rem;
+                padding: 3rem;
             }
+            
             .loading-spinner {
-                border: 4px solid rgba(255, 255, 255, 0.1);
+                border: 4px solid rgba(108, 92, 231, 0.1);
                 border-radius: 50%;
-                border-top: 4px solid #E0B0FF;
-                width: 40px;
-                height: 40px;
+                border-top: 4px solid #6c5ce7;
+                width: 50px;
+                height: 50px;
                 animation: spin 1s linear infinite;
                 margin: 0 auto 1rem auto;
             }
+            
             @keyframes spin {
                 0% { transform: rotate(0deg); }
                 100% { transform: rotate(360deg); }
             }
-            /* Style for roadmap buttons */
-            .stButton button {
-                background-color: rgba(224, 176, 255, 0.2);
-                color: white;
-                border: 1px solid rgba(224, 176, 255, 0.3);
-                padding: 0.75rem;
-                border-radius: 5px;
-                transition: all 0.3s ease;
-                width: 100%;
-            }
-            .stButton button:hover {
-                background-color: rgba(224, 176, 255, 0.3);
-                transform: translateY(-2px);
-                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            
+            @media (max-width: 768px) {
+                .career-content {
+                    flex-direction: column;
+                    text-align: center;
+                }
+                
+                .roadmap-button {
+                    width: 100%;
+                    text-align: center;
+                }
             }
             </style>
         """, unsafe_allow_html=True)

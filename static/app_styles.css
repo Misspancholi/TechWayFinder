@@ -5,13 +5,14 @@
 
 /* Base styles with custom font */
 body {
-    background-color: indigo;
+    background-color: #f0f2f6;
     font-family: 'Poppins', sans-serif;
+    color: #333;
 }
 
-/* Navbar styling with different font */
+/* Navbar styling */
 .navbar {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: #6c5ce7;
     padding: 15px;
     text-align: center;
     color: white;
@@ -19,41 +20,40 @@ body {
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
     letter-spacing: 1px;
 }
 
-/* Content container with custom font */
+/* Content container */
 .content-container {
     text-align: center;
-    max-width: 600px;
+    max-width: 1200px;
     margin: auto;
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: white;
     border-radius: 10px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
-    font-family: 'Poppins', sans-serif;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
 }
 
 /* Button styling */
 .stButton > button {
-    background-color: #E0B0FF;
-    color: black;
-    font-size: 18px;
+    background-color: #6c5ce7;
+    color: white;
+    font-size: 16px;
     padding: 12px;
-    border-radius: 10px;
+    border-radius: 8px;
     border: none;
     cursor: pointer;
     width: 100%;
     margin-top: 10px;
-    transition: transform 0.2s, background-color 0.3s, box-shadow 0.3s;
+    transition: all 0.2s ease;
 }
 
 .stButton > button:hover {
-    background-color: #E0B0FF;
-    transform: scale(1.05);
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    background-color: #5849c4;
+    transform: translateY(-2px);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Image container and dashboard styles */
@@ -75,7 +75,7 @@ body {
 }
 
 .dashboard-column {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: white;
     border-radius: 15px;
     padding: 20px;
     margin: 10px;
@@ -83,11 +83,12 @@ body {
     height: 100%;
     transition: all 0.3s ease;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e1e1e1;
 }
 
 .dashboard-column:hover {
     transform: translateY(-5px);
-    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
 }
 
 .dashboard-column:hover .dashboard-image {
@@ -115,12 +116,13 @@ body {
 
 /* Auth container styles with custom fonts */
 .auth-container {
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 10px;
+    background-color: white;
+    border-radius: 15px;
     padding: 30px;
     margin: 20px auto;
     max-width: 500px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e1e1e1;
 }
 
 .auth-container h2 {
@@ -145,15 +147,15 @@ body {
 
 /* Form inputs */
 .stTextInput > div > div > input {
-    border-radius: 5px;
-    border: 1px solid #E0B0FF;
+    border-radius: 8px;
+    border: 1px solid #6c5ce7;
     padding: 10px;
     transition: all 0.3s ease;
 }
 
 .stTextInput > div > div > input:focus {
-    border-color: #9932CC;
-    box-shadow: 0 0 5px rgba(153, 50, 204, 0.3);
+    border-color: #5849c4;
+    box-shadow: 0 0 5px rgba(108, 92, 231, 0.3);
 }
 
 /* Custom styles for Streamlit elements */
@@ -192,21 +194,20 @@ p {
 /* Tabs styling with custom font */
 .stTabs [data-baseweb="tab-list"] {
     gap: 10px;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: #f5f6fa;
     border-radius: 10px;
     padding: 5px;
 }
 
 .stTabs [data-baseweb="tab"] {
-    background-color: #E0B0FF;
-    border-radius: 5px;
-    color: black;
+    background-color: #6c5ce7;
+    border-radius: 8px;
+    color: white;
     transition: all 0.3s ease;
 }
 
 .stTabs [data-baseweb="tab"]:hover {
-    background-color: #9932CC;
-    color: white;
+    background-color: #5849c4;
 }
 
 /* Custom animation for text */
@@ -301,11 +302,13 @@ p {
 
 /* Enhanced Chatbot Interface Styling */
 .chat-container {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 20px;
+    background: white;
+    border-radius: 15px;
     padding: 20px;
-    margin: 20px 0;
+    margin: 20px auto;
+    max-width: 800px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e1e1e1;
 }
 
 .chat-message {
@@ -326,19 +329,19 @@ p {
     margin: 0 10px;
     font-family: 'Poppins', sans-serif;
     position: relative;
-    animation: pop-in 0.3s ease-out;
 }
 
 .user .message-content {
-    background: #E0B0FF;
-    color: #333;
+    background: #6c5ce7;
+    color: white;
     border-top-right-radius: 0;
 }
 
 .assistant .message-content {
-    background: #f0f0f0;
+    background: #f5f6fa;
     color: #333;
     border-top-left-radius: 0;
+    border: 1px solid #e1e1e1;
 }
 
 .chat-input-container {
@@ -346,22 +349,23 @@ p {
     border-radius: 15px;
     padding: 15px;
     margin-top: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e1e1e1;
 }
 
 .chat-input {
     width: 100%;
     padding: 12px;
-    border: 2px solid #E0B0FF;
-    border-radius: 10px;
+    border: 2px solid #6c5ce7;
+    border-radius: 8px;
     font-family: 'Poppins', sans-serif;
     font-size: 16px;
     transition: all 0.3s ease;
 }
 
 .chat-input:focus {
-    border-color: #9932CC;
-    box-shadow: 0 0 10px rgba(153, 50, 204, 0.2);
+    border-color: #5849c4;
+    box-shadow: 0 0 10px rgba(108, 92, 231, 0.2);
     outline: none;
 }
 
@@ -375,7 +379,7 @@ p {
 .typing-dot {
     width: 8px;
     height: 8px;
-    background: #E0B0FF;
+    background: #6c5ce7;
     border-radius: 50%;
     animation: typing-bounce 0.8s infinite;
 }
@@ -410,6 +414,113 @@ p {
     }
 }
 
+/* Chat Loading Animation Styles */
+.chat-loading {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 15px;
+    margin: 10px 0;
+    background: rgba(108, 92, 231, 0.1);
+    border-radius: 10px;
+    max-width: 200px;
+}
+
+.loading-dots {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.loading-dot {
+    width: 8px;
+    height: 8px;
+    background: #6c5ce7;
+    border-radius: 50%;
+    opacity: 0;
+    animation: loadingDot 1.5s infinite;
+}
+
+.loading-dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.loading-dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes loadingDot {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+/* Thinking animation */
+.thinking-animation {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: rgba(108, 92, 231, 0.1);
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
+.thinking-icon {
+    font-size: 20px;
+    animation: thinking 1s infinite;
+}
+
+.thinking-text {
+    color: #6c5ce7;
+    font-weight: 500;
+    animation: fadeInOut 2s infinite;
+}
+
+@keyframes thinking {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+/* Stream effect for text */
+.stream-effect {
+    border-right: 2px solid #6c5ce7;
+    animation: blink 0.75s step-end infinite;
+}
+
+@keyframes blink {
+    from, to { border-color: transparent; }
+    50% { border-color: #6c5ce7; }
+}
+
+/* Message appear animation */
+.message-appear {
+    animation: messageSlide 0.3s ease-out forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+@keyframes messageSlide {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* Glass morphism effects */
 .glass-card {
     background: rgba(255, 255, 255, 0.7);
@@ -435,5 +546,287 @@ p {
     }
 }
 
+/* Typing animation */
+.typing-animation {
+    display: inline-flex;
+    gap: 4px;
+    padding: 12px 16px;
+    background: rgba(108, 92, 231, 0.1);
+    border-radius: 20px;
+    margin: 8px 0;
+}
 
+.typing-animation span {
+    width: 8px;
+    height: 8px;
+    background: #6c5ce7;
+    border-radius: 50%;
+    animation: typing-bounce 1.4s infinite ease-in-out;
+}
+
+.typing-animation span:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.typing-animation span:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+@keyframes typing-bounce {
+    0%, 80%, 100% { 
+        transform: scale(0);
+        opacity: 0.3;
+    }
+    40% { 
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Chat message animations */
+.stChatMessage {
+    animation: message-fade 0.3s ease forwards;
+}
+
+@keyframes message-fade {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Chat container styles */
+.chat-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Message styles */
+.stChatMessage [data-testid="stMarkdownContainer"] {
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: rgba(108, 92, 231, 0.05);
+    transition: all 0.3s ease;
+}
+
+.stChatMessage [data-testid="stMarkdownContainer"]:hover {
+    background: rgba(108, 92, 231, 0.1);
+}
+
+/* Input field styles */
+.stChatInputContainer {
+    border-top: 1px solid rgba(108, 92, 231, 0.1);
+    padding-top: 20px;
+    margin-top: 20px;
+}
+
+.stChatInputContainer textarea {
+    border-radius: 20px;
+    border: 2px solid rgba(108, 92, 231, 0.2);
+    padding: 12px 20px;
+    transition: all 0.3s ease;
+}
+
+.stChatInputContainer textarea:focus {
+    border-color: #6c5ce7;
+    box-shadow: 0 0 0 2px rgba(108, 92, 231, 0.1);
+}
+
+/* Footer styles */
+.footer {
+    background: rgba(108, 92, 231, 0.1);
+    padding: 30px 20px;
+    margin-top: 50px;
+    border-top: 1px solid rgba(108, 92, 231, 0.2);
+    width: 100%;
+    bottom: 0;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-logo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #6c5ce7;
+    margin-bottom: 10px;
+}
+
+.footer-text {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.footer-links {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin: 15px 0;
+}
+
+.footer-link {
+    color: #6c5ce7;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+    color: #5046c0;
+    text-decoration: underline;
+}
+
+.footer-social {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.social-icon {
+    font-size: 24px;
+    color: #6c5ce7;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.social-icon:hover {
+    transform: translateY(-3px);
+}
+
+.footer-credits {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(108, 92, 231, 0.2);
+}
+
+.footer-credits p {
+    color: #888;
+    font-size: 12px;
+    margin: 5px 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-links {
+        justify-content: center;
+    }
+
+    .footer-social {
+        justify-content: center;
+    }
+}
+
+/* Add these styles to your existing CSS */
+.welcome-container {
+    background: linear-gradient(135deg, rgba(108, 92, 231, 0.1), rgba(224, 176, 255, 0.1));
+    border-radius: 15px;
+    padding: 30px;
+    margin: 20px 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(224, 176, 255, 0.2);
+}
+
+.welcome-container h1 {
+    color: #6c5ce7;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    margin-bottom: 15px;
+    font-size: 2.5em;
+}
+
+.welcome-container p {
+    color: #666;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    margin: 10px 0;
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #6c5ce7, #E0B0FF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Quiz page specific styles */
+.quiz-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.quiz-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.quiz-section {
+    background: rgba(108, 92, 231, 0.05);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.quiz-question {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Style for radio buttons in quiz */
+.stRadio > label {
+    padding: 10px !important;
+    background: rgba(224, 176, 255, 0.05);
+    border-radius: 5px;
+    margin: 5px 0;
+    transition: all 0.3s ease;
+}
+
+.stRadio > label:hover {
+    background: rgba(224, 176, 255, 0.1);
+    transform: translateX(5px);
+}
+
+/* Quiz submit button */
+.quiz-submit {
+    background: linear-gradient(135deg, #6c5ce7, #E0B0FF) !important;
+    color: white !important;
+    padding: 12px 24px !important;
+    border-radius: 8px !important;
+    border: none !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+}
+
+.quiz-submit:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 8px rgba(108, 92, 231, 0.2) !important;
+}
 

@@ -45,6 +45,17 @@ def is_valid_email(email):
 def show_auth_page():
     st.markdown("<div class='navbar'>🔐 Authentication</div>", unsafe_allow_html=True)
     
+    # Add welcome message and description
+    st.markdown("""
+        <div style='text-align: center; margin: 20px 0; padding: 30px; background: linear-gradient(135deg, rgba(108, 92, 231, 0.1), rgba(224, 176, 255, 0.1)); border-radius: 15px;'>
+            <h1 style='font-family: Montserrat, sans-serif; color: #6c5ce7; margin-bottom: 15px;'>Welcome to TechWayFinder</h1>
+            <p style='font-family: Poppins, sans-serif; color: #666; font-size: 1.1em; max-width: 600px; margin: 0 auto;'>
+                Your gateway to discovering the perfect tech career path. Join us to explore personalized roadmaps, 
+                take skill assessment quizzes, and get AI-powered guidance for your tech journey.
+            </p>
+        </div>
+    """, unsafe_allow_html=True)
+    
     if 'auth_mode' not in st.session_state:
         st.session_state.auth_mode = 'login'
 
@@ -60,7 +71,7 @@ def show_auth_page():
             st.session_state.auth_mode = 'signup'
             st.rerun()
 
-    st.markdown("<div class='auth-container'>", unsafe_allow_html=True)
+    # st.markdown("<div class='auth-container'>", unsafe_allow_html=True)
     
     # Login Form
     if st.session_state.auth_mode == 'login':
@@ -130,4 +141,5 @@ def show_auth_page():
                         st.error("User already exists")
 
     st.markdown("</div>", unsafe_allow_html=True)
+
 

@@ -3,96 +3,187 @@ import streamlit as st
 def show_roadmaps():
     st.markdown("<div class='navbar'>🗺️ Career Roadmaps</div>", unsafe_allow_html=True)
     
-    # Define roadmap data
     roadmaps = {
-        "Software Development": {
-            "Frontend Developer": "https://roadmap.sh/frontend",
-            "Backend Developer": "https://roadmap.sh/backend",
-            "Full Stack Developer": "https://roadmap.sh/full-stack",
-            "DevOps Engineer": "https://roadmap.sh/devops",
+        "Development & Testing": {
+            "Software Developer": " https://roadmap.sh/full-stackd",
+            "API Integration Specialist": "https://roadmap.sh/backend",
+            "Software Tester": "https://roadmap.sh/qa",
         },
-        "Data Science & AI": {
+        "Data & AI": {
             "Data Scientist": "https://roadmap.sh/ai-data-scientist",
-            "Machine Learning Engineer": "https://roadmap.sh/ai-ml",
-            "Data Engineer": "https://roadmap.sh/data-engineer",
+            "AI ML Specialist": "https://roadmap.sh/ai-data-scientist",
+            "Database Administrator": "https://roadmap.sh/postgresql-dba",
         },
-        "Cybersecurity": {
-            "Security Engineer": "https://roadmap.sh/cyber-security",
-            "Penetration Tester": "https://roadmap.sh/pen-tester",
-            "Security Analyst": "https://roadmap.sh/security-analyst",
+        "Infrastructure & Security": {
+            "Cyber Security Specialist": "https://roadmap.sh/cyber-security",
+            "Information Security Specialist": "https://roadmap.sh/cyber-security",
+            "Networking Engineer": "https://roadmap.sh/devops",
+            "Hardware Engineer": "https://roadmap.sh/computer-science",
         },
-        "Cloud Computing": {
-            "Cloud Engineer": "https://roadmap.sh/cloud-engineer",
-            "AWS Developer": "https://roadmap.sh/aws",
-            "Azure Developer": "https://roadmap.sh/azure",
+        "Management & Support": {
+            "Project Manager": "https://roadmap.sh/project-manager",
+            "Business Analyst": "https://roadmap.sh/business-analyst",
+            "Technical Writer": "https://roadmap.sh/technical-writer",
+            "Application Support Engineer": "https://roadmap.sh/devops",
+            "Helpdesk Engineer": "https://roadmap.sh/devops",
+            "Customer Service Executive": "https://roadmap.sh/software-design-architecture",
+            "Graphics Designer": "https://roadmap.sh/design-system"
         }
     }
 
-    # Add JavaScript for handling clicks
     st.markdown("""
-        <script>
-            function openRoadmap(url) {
-                window.open(url, '_blank');
-            }
-        </script>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""
-        <div class='roadmaps-container'>
-            <h1 style='text-align: center; margin-bottom: 30px;'>Choose Your Career Path</h1>
+        <div style='text-align: center; padding: 20px 0;'>
+            <h1 style='color: #333;'>Choose Your Career Path</h1>
         </div>
     """, unsafe_allow_html=True)
 
     # Create tabs for different categories
     tabs = st.tabs(list(roadmaps.keys()))
 
-    # Display roadmaps for each category
-    for tab_idx, (category, paths) in enumerate(roadmaps.items()):
-        with tabs[tab_idx]:
-            st.markdown(f"### {category} Paths")
+    # Display roadmaps in each tab
+    for tab_idx, (tab, (category, paths)) in enumerate(zip(tabs, roadmaps.items())):
+        with tab:
+            st.markdown(f"### {category} Paths", help=f"Explore {category} career paths")
             
-            # Create columns for roadmap cards
-            for role, link in paths.items():
-                # Create a clickable button for each roadmap
-                if st.button(f"📚 {role}", key=f"btn_{category}_{role}", use_container_width=True):
-                    st.markdown(f'<script>window.open("{link}", "_blank");</script>', unsafe_allow_html=True)
-                    # Provide a manual link as fallback
-                    st.markdown(f"[Click here if the roadmap doesn't open automatically]({link})")
+            # Calculate number of rows needed (2 items per row)
+            num_items = len(paths)
+            num_rows = (num_items + 1) // 2
+            
+            # Create rows with 2 columns each
+            for i in range(0, num_items, 2):
+                col1, col2 = st.columns(2)
+                
+                # Alternate between purple and pink for each card
+                colors = ['#6c5ce7', '#E0B0FF']  # Purple and Pink
+                
+                # First item in row
+                path_name = list(paths.keys())[i]
+                path_url = list(paths.values())[i]
+                card_color = colors[i % 2]
+                with col1:
+                    st.markdown(f"""
+                        <div style='
+                            background-color: {card_color};
+                            padding: 20px;
+                            border-radius: 10px;
+                            text-align: center;
+                            margin: 10px 0;
+                            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                            transition: transform 0.3s ease;
+                        '>
+                            <h4 style='color: white; margin: 0;'>{path_name}</h4>
+                        </div>
+                    """, unsafe_allow_html=True)
+                    if st.button(f"View Roadmap", key=f"btn_{path_name}"):
+                        st.markdown(f"Opening roadmap for {path_name}...")
+                        st.markdown(f'<script>window.open("{path_url}", "_blank");</script>', 
+                                  unsafe_allow_html=True)
+                
+                # Second item in row (if exists)
+                if i + 1 < num_items:
+                    path_name = list(paths.keys())[i + 1]
+                    path_url = list(paths.values())[i + 1]
+                    card_color = colors[(i + 1) % 2]
+                    with col2:
+                        st.markdown(f"""
+                            <div style='
+                                background-color: {card_color};
+                                padding: 20px;
+                                border-radius: 10px;
+                                text-align: center;
+                                margin: 10px 0;
+                                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                                transition: transform 0.3s ease;
+                            '>
+                                <h4 style='color: white; margin: 0;'>{path_name}</h4>
+                            </div>
+                        """, unsafe_allow_html=True)
+                        if st.button(f"View Roadmap", key=f"btn_{path_name}"):
+                            st.markdown(f"Opening roadmap for {path_name}...")
+                            st.markdown(f'<script>window.open("{path_url}", "_blank");</script>', 
+                                      unsafe_allow_html=True)
 
-    # Add custom CSS for roadmaps page
+    # Updated styling with purple and pink theme
     st.markdown("""
         <style>
-        .roadmaps-container {
-            padding: 20px;
-            margin-bottom: 30px;
-        }
-        .stTabs [data-baseweb="tab-list"] {
-            gap: 10px;
-        }
-        .stTabs [data-baseweb="tab"] {
-            height: 50px;
-            white-space: pre-wrap;
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 5px;
-            gap: 10px;
-            padding: 10px;
-        }
-        .stTabs [aria-selected="true"] {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        /* Style for roadmap buttons */
-        .stButton button {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 15px;
-            margin: 5px 0;
-            transition: all 0.3s ease;
-        }
-        .stButton button:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
+            .stTabs [data-baseweb="tab-list"] {
+                gap: 20px;
+                justify-content: center;
+                background-color: #f0f2f6;
+                padding: 10px;
+                border-radius: 10px;
+            }
+            
+            .stTabs [data-baseweb="tab"] {
+                height: 50px;
+                padding: 0 20px;
+                background: linear-gradient(135deg, #6c5ce7, #E0B0FF);
+                border-radius: 5px;
+                color: white !important;
+                font-weight: 500;
+                border: none;
+            }
+            
+            .stTabs [data-baseweb="tab"]:hover {
+                background: linear-gradient(135deg, #5849c4, #D1A1F0);
+            }
+            
+            .stTabs [aria-selected="true"] {
+                background: linear-gradient(135deg, #5849c4, #D1A1F0) !important;
+                border-bottom: 3px solid white;
+            }
+            
+            .stButton button {
+                width: 100%;
+                background: linear-gradient(135deg, #6c5ce7, #E0B0FF) !important;
+                color: white !important;
+                border: none !important;
+                padding: 0.75rem !important;
+                margin-top: 10px;
+                border-radius: 5px;
+                font-weight: 500;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            
+            .stButton button:hover {
+                background: linear-gradient(135deg, #5849c4, #D1A1F0) !important;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            }
+
+            .stTabs [data-baseweb="tab-panel"] {
+                padding: 20px 0;
+            }
+
+            h3 {
+                color: #333;
+                margin-bottom: 20px;
+                text-align: center;
+            }
+
+            /* Hover effect for cards */
+            div[style*="background-color"] {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            div[style*="background-color"]:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            }
+
+            /* Navbar gradient */
+            .navbar {
+                background: linear-gradient(135deg, #6c5ce7, #E0B0FF);
+                padding: 15px;
+                text-align: center;
+                color: white;
+                font-size: 24px;
+                font-weight: 600;
+                border-radius: 10px;
+                box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+                margin-bottom: 20px;
+            }
         </style>
     """, unsafe_allow_html=True)
+
