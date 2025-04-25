@@ -1,2 +1,15 @@
 streamlit 
+langchain_openai
 sqlite3
+hashlib
+os
+random
+re
+pathlib 
+base64
+pickle
+numpy
+time 
+pandas
+hashlib
+re
