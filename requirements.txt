@@ -1,2 +1,9 @@
-streamlit 
-sqlite3
+streamlit>=1.28.0
+pandas>=2.0.0
+numpy>=1.24.0
+langchain-openai>=0.0.5
+sqlite3-api>=2.0.1  # For SQLite database operations
+Pillow>=10.0.0  # For image processing
+pathlib>=1.0.1
+pickle-mixin>=1.0.2  # For model serialization
+scikit-learn>=1.3.0  # For the KNN model
