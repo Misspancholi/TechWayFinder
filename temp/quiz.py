@@ -70,8 +70,7 @@ def display_quiz():
             selection = st.radio(
                 f"{question[1]}", 
                 [question[3], question[4], question[5], question[6]], 
-                key=key,
-                index=None  # This ensures no default selection
+                key=key
             )
             st.session_state.quiz_selections[i] = selection
             

@@ -42,33 +42,23 @@ def results():
         c.execute("select * from quiz_scores where user_id == ?", (st.session_state.user_id,))
         
         result = c.fetchone()
-        conn.close()
-        
         if result:
             st.session_state.quiz_results = result[1:18]
             st.session_state.result_stage = "pred"
-            st.rerun()  # Add this to trigger the prediction stage
         else:
             st.warning("⚠️ No results found. Please complete the quiz first!")
-            st.session_state.result_stage = "load"  # Reset stage if no results
-            return
+        conn.close()
 
     if st.session_state.result_stage == "pred":
-        try:
-            with open("model/trained_knn_model.sav", "rb") as model_file:
-                model = pickle.load(model_file)
-            model.feature_names_in_ = None
-            data = np.array(st.session_state.quiz_results).reshape(1, -1)
+        with open("model/trained_knn_model.sav", "rb") as model_file:
+            model = pickle.load(model_file)
+        model.feature_names_in_ = None
+        data = np.array(st.session_state.quiz_results).reshape(1, -1)
 
-            proba = model.predict_proba(data)
-            top_3_indices = np.argsort(proba, axis=1)[:, -3:]
-            st.session_state.predictions = [(model.classes_[i], proba[0][i]) for i in top_3_indices[0]]
-            st.session_state.result_stage = "show"
-            st.rerun()  # Add this to trigger the show stage
-        except Exception as e:
-            st.error(f"Error during prediction: {str(e)}")
-            st.session_state.result_stage = "load"
-            return
+        proba = model.predict_proba(data)
+        top_3_indices = np.argsort(proba, axis=1)[:, -3:]
+        st.session_state.predictions = [(model.classes_[i], proba[0][i]) for i in top_3_indices[0]]
+        st.session_state.result_stage = "show"
 
     if st.session_state.result_stage == "show":
         st.markdown("""

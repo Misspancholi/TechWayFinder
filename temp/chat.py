@@ -14,7 +14,6 @@ def init_chat_client():
         )
         return client
     except Exception:
-        print("Error initializing chat client. Check your API key.")
         return None
 
 def chatbot():
