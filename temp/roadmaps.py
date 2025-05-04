@@ -1,11 +1,12 @@
 import streamlit as st
+import webbrowser
 
 def show_roadmaps():
     st.markdown("<div class='navbar'>🗺️ Career Roadmaps</div>", unsafe_allow_html=True)
     
     roadmaps = {
         "Development & Testing": {
-            "Software Developer": " https://roadmap.sh/full-stackd",
+            "Software Developer": "https://roadmap.sh/full-stack",  # Fixed typo in URL
             "API Integration Specialist": "https://roadmap.sh/backend",
             "Software Tester": "https://roadmap.sh/qa",
         },
@@ -45,18 +46,11 @@ def show_roadmaps():
         with tab:
             st.markdown(f"### {category} Paths", help=f"Explore {category} career paths")
             
-            # Calculate number of rows needed (2 items per row)
-            num_items = len(paths)
-            num_rows = (num_items + 1) // 2
-            
-            # Create rows with 2 columns each
-            for i in range(0, num_items, 2):
+            for i in range(0, len(paths), 2):
                 col1, col2 = st.columns(2)
+                colors = ['#6c5ce7', '#E0B0FF']
                 
-                # Alternate between purple and pink for each card
-                colors = ['#6c5ce7', '#E0B0FF']  # Purple and Pink
-                
-                # First item in row
+                # First item
                 path_name = list(paths.keys())[i]
                 path_url = list(paths.values())[i]
                 card_color = colors[i % 2]
@@ -72,15 +66,21 @@ def show_roadmaps():
                             transition: transform 0.3s ease;
                         '>
                             <h4 style='color: white; margin: 0;'>{path_name}</h4>
+                            <a href='{path_url}' target='_blank' style='
+                                display: inline-block;
+                                margin-top: 10px;
+                                padding: 8px 16px;
+                                background-color: white;
+                                color: {card_color};
+                                text-decoration: none;
+                                border-radius: 5px;
+                                font-weight: 500;
+                            '>View Roadmap</a>
                         </div>
                     """, unsafe_allow_html=True)
-                    if st.button(f"View Roadmap", key=f"btn_{path_name}"):
-                        st.markdown(f"Opening roadmap for {path_name}...")
-                        st.markdown(f'<script>window.open("{path_url}", "_blank");</script>', 
-                                  unsafe_allow_html=True)
                 
-                # Second item in row (if exists)
-                if i + 1 < num_items:
+                # Second item (if exists)
+                if i + 1 < len(paths):
                     path_name = list(paths.keys())[i + 1]
                     path_url = list(paths.values())[i + 1]
                     card_color = colors[(i + 1) % 2]
@@ -96,12 +96,18 @@ def show_roadmaps():
                                 transition: transform 0.3s ease;
                             '>
                                 <h4 style='color: white; margin: 0;'>{path_name}</h4>
+                                <a href='{path_url}' target='_blank' style='
+                                    display: inline-block;
+                                    margin-top: 10px;
+                                    padding: 8px 16px;
+                                    background-color: white;
+                                    color: {card_color};
+                                    text-decoration: none;
+                                    border-radius: 5px;
+                                    font-weight: 500;
+                                '>View Roadmap</a>
                             </div>
                         """, unsafe_allow_html=True)
-                        if st.button(f"View Roadmap", key=f"btn_{path_name}"):
-                            st.markdown(f"Opening roadmap for {path_name}...")
-                            st.markdown(f'<script>window.open("{path_url}", "_blank");</script>', 
-                                      unsafe_allow_html=True)
 
     # Updated styling with purple and pink theme
     st.markdown("""

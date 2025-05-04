@@ -56,89 +56,98 @@ def show_auth_page():
         </div>
     """, unsafe_allow_html=True)
     
-    if 'auth_mode' not in st.session_state:
-        st.session_state.auth_mode = 'login'
-
-    col1, col2 = st.columns(2)
-    with col1:
-        if st.button("Login", use_container_width=True, 
-                    type="primary" if st.session_state.auth_mode == 'login' else "secondary"):
-            st.session_state.auth_mode = 'login'
-            st.rerun()
-    with col2:
-        if st.button("Sign Up", use_container_width=True,
-                    type="primary" if st.session_state.auth_mode == 'signup' else "secondary"):
-            st.session_state.auth_mode = 'signup'
-            st.rerun()
-
-    # st.markdown("<div class='auth-container'>", unsafe_allow_html=True)
+    # Create a container with limited width for the auth forms
+    col1, col2, col3 = st.columns([1, 2, 1])
     
-    # Login Form
-    if st.session_state.auth_mode == 'login':
-        st.markdown("<h2>Login</h2>", unsafe_allow_html=True)
-        
-        # Create a form that can be submitted with Enter key
-        with st.form("login_form", clear_on_submit=True):
-            login_email = st.text_input("Email", placeholder="Enter your email", 
-                                      key="login_email").strip()
-            login_password = st.text_input("Password", type="password", 
-                                         placeholder="Enter your password", 
-                                         key="login_pass").strip()
-            
-            # Captcha
-            if 'captcha_image_name' not in st.session_state:
-                image_files = [f for f in os.listdir('captcha') if f.endswith(('png',))]
-                st.session_state.captcha_image_name = random.choice(image_files)
-            captcha_image = "captcha/" + st.session_state.captcha_image_name
-            st.image(captcha_image)
-            captcha_input = st.text_input("Enter Captcha", 
-                                        placeholder="Enter the text shown in image above").strip()
-            
-            submitted = st.form_submit_button("Login", use_container_width=True)
-            
-            if submitted:
-                if login_email == "" or login_password == "" or captcha_input == "":
-                    st.error("Please fill in all fields")
-                elif captcha_input != st.session_state.captcha_image_name.split('.')[0]:
-                    st.error("Invalid captcha")
-                else:
-                    if login_user(login_email, login_password):
-                        st.success("Login Successful")
-                        st.rerun()
-                    else:
-                        st.error("Invalid username or password")
+    with col2:
+        if 'auth_mode' not in st.session_state:
+            st.session_state.auth_mode = 'login'
 
-    # Signup Form
-    else:
-        st.markdown("<h2>Sign Up</h2>", unsafe_allow_html=True)
-        
-        # Create a form that can be submitted with Enter key
-        with st.form("signup_form", clear_on_submit=True):
-            new_fullname = st.text_input("Full Name", key="signup_fullname").strip()
-            new_email = st.text_input("Email Address", key="signup_email").strip()
-            new_age = st.number_input("Age", min_value=0, max_value=120, key="signup_age")
-            new_password = st.text_input("Password", type="password", key="signup_password").strip()
-            confirm_password = st.text_input("Confirm Password", type="password", 
-                                           key="signup_confirm_password").strip()
+        tab1, tab2 = st.columns(2)
+        with tab1:
+            if st.button("Login", use_container_width=True, 
+                        type="primary" if st.session_state.auth_mode == 'login' else "secondary"):
+                st.session_state.auth_mode = 'login'
+                st.rerun()
+        with tab2:
+            if st.button("Sign Up", use_container_width=True,
+                        type="primary" if st.session_state.auth_mode == 'signup' else "secondary"):
+                st.session_state.auth_mode = 'signup'
+                st.rerun()
+
+        # Login Form
+        if st.session_state.auth_mode == 'login':
+            st.markdown("<h2 class='auth-title'>Login</h2>", unsafe_allow_html=True)
             
-            submitted = st.form_submit_button('Sign up', use_container_width=True)
-            
-            if submitted:
-                if (new_fullname=="" or new_email=="" or new_password=="" or confirm_password==""):
-                    st.error("Please fill in all fields")
-                elif not is_valid_email(new_email):
-                    st.error("Please enter a valid email address")
-                elif new_password != confirm_password:
-                    st.error("Passwords do not match")
-                elif len(new_password) < 8:
-                    st.error("Password must be at least 8 characters long")
-                else:
-                    if signup_user(new_fullname, new_email, new_age, new_password):
-                        st.success("User created successfully")
-                        st.session_state.auth_mode = 'login'
-                        st.rerun()
+            # Create a form that can be submitted with Enter key
+            with st.form("login_form", clear_on_submit=True):
+                login_email = st.text_input("Email", placeholder="Enter your email", 
+                                          key="login_email").strip()
+                login_password = st.text_input("Password", type="password", 
+                                             placeholder="Enter your password", 
+                                             key="login_pass").strip()
+                
+                # Captcha
+                if 'captcha_image_name' not in st.session_state:
+                    image_files = [f for f in os.listdir('captcha') if f.endswith(('png',))]
+                    st.session_state.captcha_image_name = random.choice(image_files)
+                captcha_image = "captcha/" + st.session_state.captcha_image_name
+                st.image(captcha_image)
+                captcha_input = st.text_input("Enter Captcha", 
+                                            placeholder="Enter the text shown in image above").strip()
+                
+                submitted = st.form_submit_button("Login", use_container_width=True)
+                
+                if submitted:
+                    if login_email == "" or login_password == "" or captcha_input == "":
+                        st.error("Please fill in all fields")
+                    elif captcha_input != st.session_state.captcha_image_name.split('.')[0]:
+                        st.error("Invalid captcha")
                     else:
-                        st.error("User already exists")
+                        if login_user(login_email, login_password):
+                            st.success("Login Successful")
+                            st.rerun()
+                        else:
+                            st.error("Invalid username or password")
+
+        # Signup Form
+        else:
+            st.markdown("<h2 class='auth-title'>Sign Up</h2>", unsafe_allow_html=True)
+            
+            # Create a form that can be submitted with Enter key
+            with st.form("signup_form", clear_on_submit=True):
+                new_fullname = st.text_input("Full Name", key="signup_fullname").strip()
+                new_email = st.text_input("Email Address", key="signup_email").strip()
+                new_age = st.number_input("Age", min_value=0, max_value=120, key="signup_age")
+                new_password = st.text_input("Password", type="password", key="signup_password").strip()
+                confirm_password = st.text_input("Confirm Password", type="password", 
+                                               key="signup_confirm_password").strip()
+                
+                submitted = st.form_submit_button('Sign up', use_container_width=True)
+                
+                if submitted:
+                    if (new_fullname=="" or new_email=="" or new_password=="" or confirm_password==""):
+                        st.error("Please fill in all fields")
+                    elif not is_valid_email(new_email):
+                        st.error("Please enter a valid email address")
+                    elif new_password != confirm_password:
+                        st.error("Passwords do not match")
+                    elif len(new_password) < 8:
+                        st.error("Password must be at least 8 characters long")
+                    else:
+                        if signup_user(new_fullname, new_email, new_age, new_password):
+                            st.success("User created successfully")
+                            st.session_state.auth_mode = 'login'
+                            st.rerun()
+                        else:
+                            st.error("User already exists")
+    
+    # Back button centered at the bottom
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        if st.button("Back to Homepage", use_container_width=True):
+            st.session_state.page = "landing"
+            st.rerun()
 
     st.markdown("</div>", unsafe_allow_html=True)
 
