@@ -1,0 +1,40 @@
+🧪 Software Tester / QA Engineer
+
+🧩 What They Do:
+They ensure software is bug-free, user-friendly, and meets requirements before release.
+
+👶 Beginner Level:
+Testing Types: Manual testing, black-box, white-box, smoke testing.
+Bug Reporting: Use tools like Jira or Bugzilla.
+Test Cases: Writing and executing test scenarios.
+
+🧑‍💻 Intermediate Level:
+Automation Testing: Selenium, Cypress, Appium.
+API Testing: Postman, REST-assured.
+Testing Frameworks: JUnit, TestNG, PyTest.
+
+🧙 Advanced Level:
+Performance Testing: JMeter, LoadRunner.
+CI/CD Testing: Integrate testing into DevOps pipelines.
+Test Strategy: Plan and manage end-to-end testing lifecycle.
+
+
+🧪 Software Tester – Roadmap
+
+🎯 Stage 1: Foundation
+Testing Basics: Unit, integration, regression.
+Tools: Excel for test cases, Jira for bugs.
+Mini Projects: Test a simple to-do app manually.
+
+📈 Stage 2: Development
+Automation Tools: Selenium, Cypress.
+API Testing: Postman, REST Assured.
+Languages: Java, Python for automation scripting.
+Certs: ISTQB Foundation.
+
+🚀 Stage 3: Professional
+CI/CD: Jenkins, GitHub Actions.
+Performance Testing: JMeter, LoadRunner.
+Test Strategy: Agile Testing, DevOps QA.
+Career Roles: QA Engineer, Automation Tester, Test Architect.
+

@@ -1,0 +1,38 @@
+🔐 Cybersecurity Specialist
+
+🧩 What They Do:
+They protect systems and data from cyber attacks.
+
+👶 Beginner Level:
+Security Basics: Confidentiality, integrity, availability (CIA triad).
+Threat Types: Malware, phishing, social engineering.
+OS and Network Knowledge: Linux, Windows security, firewalls.
+
+🧑‍💻 Intermediate Level:
+Ethical Hacking: Use Kali Linux, Metasploit, Burp Suite.
+Certifications: CompTIA Security+, CEH (Certified Ethical Hacker).
+Encryption & Authentication: Symmetric/asymmetric, hashing.
+
+🧙 Advanced Level:
+Incident Response: Handling and investigating breaches.
+Security Audits & Compliance: GDPR, ISO 27001.
+Penetration Testing & Red Teaming: Simulate attacks to find vulnerabilities.
+
+🔐 Cybersecurity Specialist – Roadmap
+
+🎯 Stage 1: Foundation
+Concepts: CIA Triad, threats, malware.
+Skills: Linux basics, networking.
+Mini Projects: Password manager, firewall setup.
+
+📈 Stage 2: Development
+Ethical Hacking: Kali Linux, Nmap, Wireshark.
+Certs: CompTIA Security+, CEH.
+Projects: Simulated phishing attack lab.
+
+🚀 Stage 3: Professional
+Incident Response: Forensics, SOC.
+Security Frameworks: NIST, ISO.
+Red Team / Blue Team: Simulate and defend against attacks.
+Career Roles: Penetration Tester, SOC Analyst, Security Engineer.
+

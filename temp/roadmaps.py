@@ -1,34 +1,26 @@
 import streamlit as st
-import webbrowser
 
 def show_roadmaps():
     st.markdown("<div class='navbar'>🗺️ Career Roadmaps</div>", unsafe_allow_html=True)
     
     roadmaps = {
         "Development & Testing": {
-            "Software Developer": "https://roadmap.sh/full-stack",  # Fixed typo in URL
-            "API Integration Specialist": "https://roadmap.sh/backend",
-            "Software Tester": "https://roadmap.sh/qa",
+            "Software Developer": "C:/Users/kanis/TechWayFinder/temp/software_dev.txt",  
+            "Software Tester": "C:/Users/kanis/TechWayFinder/temp/software_tester.txt"
         },
         "Data & AI": {
-            "Data Scientist": "https://roadmap.sh/ai-data-scientist",
-            "AI ML Specialist": "https://roadmap.sh/ai-data-scientist",
-            "Database Administrator": "https://roadmap.sh/postgresql-dba",
+            "Data Scientist": "C:/Users/kanis/TechWayFinder/temp/data_sci.txt", 
+            "AI ML Specialist": "C:/Users/kanis/TechWayFinder/temp/AI_ML.txt",  
+            "Database Administrator": "C:/Users/kanis/TechWayFinder/temp/DBA.txt"
         },
         "Infrastructure & Security": {
-            "Cyber Security Specialist": "https://roadmap.sh/cyber-security",
-            "Information Security Specialist": "https://roadmap.sh/cyber-security",
-            "Networking Engineer": "https://roadmap.sh/devops",
-            "Hardware Engineer": "https://roadmap.sh/computer-science",
+            "Cyber Security Specialist": "C:/Users/kanis/TechWayFinder/temp/cyb_sec.txt",
+            "Information Security Specialist": "C:/Users/kanis/TechWayFinder/temp/IS_specialist.txt",
+            "Networking Engineer": "C:/Users/kanis/TechWayFinder/temp/network_eng.txt",
+            "Hardware Engineer": "C:/Users/kanis/TechWayFinder/temp/hardware_eng.txt"
         },
         "Management & Support": {
-            "Project Manager": "https://roadmap.sh/project-manager",
-            "Business Analyst": "https://roadmap.sh/business-analyst",
-            "Technical Writer": "https://roadmap.sh/technical-writer",
-            "Application Support Engineer": "https://roadmap.sh/devops",
-            "Helpdesk Engineer": "https://roadmap.sh/devops",
-            "Customer Service Executive": "https://roadmap.sh/software-design-architecture",
-            "Graphics Designer": "https://roadmap.sh/design-system"
+            "Business Analyst": "C:/Users/kanis/TechWayFinder/temp/business_analyst.txt"
         }
     }
 

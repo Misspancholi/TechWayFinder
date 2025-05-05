@@ -1,0 +1,36 @@
+🛡️ Information Security Specialist
+
+🧩 What They Do:
+They manage and enforce security policies to protect digital assets.
+
+👶 Beginner Level:
+Understand Policies: Access control, password policies.
+Security Tools: Antivirus, firewalls, VPN.
+Risk Basics: Understand threat, vulnerability, and risk assessments.
+
+🧑‍💻 Intermediate Level:
+Tools: SIEM systems like Splunk, endpoint detection (EDR).
+Policy Writing: Security plans, incident response documentation.
+Identity Management: Single Sign-On, MFA.
+
+🧙 Advanced Level:
+Governance & Compliance: Handle audits, manage compliance for ISO, HIPAA, etc.
+Security Operations: Work in SOC (Security Operations Center).
+Zero Trust: Implement identity-first, least privilege access.
+
+🛡️ Information Security Specialist – Roadmap
+
+🎯 Stage 1: Foundation
+Learn: Threats, attacks, basic policy making.
+Tools: Firewalls, antivirus, Windows & Linux security.
+
+📈 Stage 2: Development
+Advanced Tools: Splunk, Nessus, SIEM.
+Policies: Passwords, encryption, access control.
+Certs: CISSP, CompTIA Security+.
+Projects: Create a security handbook or access control system.
+
+🚀 Stage 3: Professional
+Governance: Audits, GDPR, HIPAA.
+Threat Intelligence: Dark web monitoring, threat modeling.
+Career Roles: Risk Analyst, Compliance Officer, InfoSec Manager.

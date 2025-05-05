@@ -1,0 +1,39 @@
+📊 Business Analyst
+
+🧩 What They Do:
+Business Analysts bridge the gap between IT and business. They identify problems and recommend technology-driven solutions.
+
+👶 Beginner Level:
+Excel & Spreadsheets: Master data analysis using pivot tables, formulas, and charts.
+Communication Skills: Writing clear requirements and presenting data findings.
+Basic SQL: Extract insights from databases.
+
+🧑‍💻 Intermediate Level:
+BI Tools: Tableau, Power BI, Looker for dashboards and visual analytics.
+Gathering Requirements: Learn techniques like interviews, surveys, and user stories.
+Documentation: Prepare BRDs (Business Requirement Documents), and flowcharts.
+
+🧙 Advanced Level:
+Domain Knowledge: Understand finance, marketing, supply chain, etc.
+Statistical Analysis: Hypothesis testing, regression, A/B testing.
+Predictive Analytics: Basic exposure to data modeling and forecasting.
+
+📊 Business Analyst – Roadmap
+
+🎯 Stage 1: Foundation
+Tools: Excel, Google Sheets, basic charts.
+Skills: Communication, problem-solving.
+Learning: Business terminology, data flow diagrams.
+
+📈 Stage 2: Development
+SQL: Join, filter, group, aggregate.
+Visualization: Power BI, Tableau.
+Documentation: BRD, user stories, wireframes.
+Projects: Market trend report, customer feedback analysis.
+
+🚀 Stage 3: Professional
+Analytics: Forecasting, KPIs, A/B Testing.
+Advanced Excel: VBA, macros, pivot reports.
+Certs: CBAP, ECBA, Google Data Analytics.
+Career Roles: Business Analyst, Product Analyst, Strategy Consultant.
+

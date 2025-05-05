@@ -176,11 +176,11 @@ def show_landing_page():
     st.markdown(
         """
         <div class='cta-section'>
-            <h2 class='cta-title'>
-                Ready to Discover Your Tech Career Path?
+            <h2 class='cta-title' align='center'>
+                                           Ready to Discover Your Tech Career Path?
             </h2>
-            <p class='cta-text'>
-                Join thousands of students and professionals who have found their ideal tech career with TechWayFinder.
+            <p class='cta-title' align='center'>
+            Join thousands of students and professionals who have found their ideal tech career with TechWayFinder.
             </p>
         </div>
         """,

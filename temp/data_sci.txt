@@ -1,0 +1,39 @@
+📈 Data Scientist
+
+🧩 What They Do:
+They extract knowledge from data using algorithms, statistics, and machine learning.
+
+👶 Beginner Level:
+Statistics & Math: Mean, median, mode, distributions.
+Python & R: For data cleaning and analysis.
+Visualization: Matplotlib, Seaborn, Plotly.
+
+🧑‍💻 Intermediate Level:
+Data Wrangling: Pandas, NumPy, SQL for data extraction and transformation.
+Machine Learning Models: Regression, clustering, classification.
+Projects: Predictive models, churn analysis, sentiment analysis.
+
+🧙 Advanced Level:
+Big Data Tools: Hadoop, Spark.
+Deep Learning: TensorFlow, PyTorch.
+End-to-End Pipelines: Data ingestion → cleaning → modeling → deployment.
+
+📈 Data Scientist – Roadmap
+
+🎯 Stage 1: Foundation
+Math: Mean, median, mode, standard deviation.
+Language: Python or R.
+Mini Projects: Analyze student marks, explore datasets.
+
+📈 Stage 2: Development
+Data Handling: Pandas, NumPy.
+ML Models: Linear regression, clustering.
+Certs: Google Data Analytics, IBM DS.
+Projects: Sales prediction, tweet sentiment analysis.
+
+🚀 Stage 3: Professional
+Big Data: Spark, Hadoop.
+Deep Learning: TensorFlow, Keras.
+Deployment: Streamlit, Flask, FastAPI.
+Career Roles: Data Scientist, ML Engineer, Data Analyst.
+
