@@ -19,6 +19,9 @@ def show_dashboard():
                 Discover your perfect tech role through our interactive quiz, AI-powered chat assistance, and comprehensive roadmaps.</p>
         </div>
     """.format(st.session_state.get('user_name', 'Guest')), unsafe_allow_html=True)
+    if st.button("Eligibility Test"):
+            st.session_state.page = "profile"
+            st.rerun()
     
     # Create four columns
     col1, col2, col3, col4 = st.columns(4)
@@ -58,7 +61,7 @@ def show_dashboard():
                     <img src='data:image/png;base64,{}' class='dashboard-image' alt='Chatbot'>
                 </div>
                 <h3>Chat Assistant</h3>
-                <p>Get help from our AI chatbot      <br></p>
+                <p> Get help from our AI chatbot regarding your career   <br></p>
             </div>
         """.format(get_base64_from_file("images/chatbot.png")), unsafe_allow_html=True)
         if st.button("Chatbot"):
@@ -79,20 +82,8 @@ def show_dashboard():
             st.session_state.page = "roadmaps"
             st.rerun()
     
-    with col4:
-        st.markdown("""
-            <div class='dashboard-column'>
-                <div class='image-container'>
-                    <img src='data:image/png;base64,{}' class='dashboard-image' alt='Profile'>
-                </div>
-                <h3>Update Profile</h3>
-                <p>Complete your profile information</p>
-            </div>
-        """.format(get_base64_from_file("images/profile.png")), unsafe_allow_html=True)
-        if st.button("Profile"):
-            st.session_state.page = "profile"
-            st.rerun()
-    
+   
+        
     # Logout button in a centered container
     st.markdown("<div style='text-align: center; margin-top: 20px;'>", unsafe_allow_html=True)
     if st.button("Logout"):
