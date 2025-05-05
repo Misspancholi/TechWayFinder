@@ -79,6 +79,20 @@ def show_dashboard():
             st.session_state.page = "roadmaps"
             st.rerun()
     
+    with col4:
+        st.markdown("""
+            <div class='dashboard-column'>
+                <div class='image-container'>
+                    <img src='data:image/png;base64,{}' class='dashboard-image' alt='Profile'>
+                </div>
+                <h3>Update Profile</h3>
+                <p>Complete your profile information</p>
+            </div>
+        """.format(get_base64_from_file("images/profile.png")), unsafe_allow_html=True)
+        if st.button("Profile"):
+            st.session_state.page = "profile"
+            st.rerun()
+    
     # Logout button in a centered container
     st.markdown("<div style='text-align: center; margin-top: 20px;'>", unsafe_allow_html=True)
     if st.button("Logout"):

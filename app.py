@@ -109,4 +109,10 @@ elif st.session_state.page == "roadmaps":
     if st.button("Back to Dashboard"):
         st.session_state.page = "index"
         st.rerun()
+
+# Profile Form Page
+elif st.session_state.page == "profile":
+    from temp.profile_form import show_profile_form
+    show_profile_form()
+
 print("app is finished", "\nst.session state =",st.session_state.page)
