@@ -1,26 +1,40 @@
 import streamlit as st
+import os
+from temp.roadmap_pages import show_roadmap_page, get_roadmap_details
 
 def show_roadmaps():
+    # Check if we need to show a specific roadmap
+    if "current_roadmap" in st.session_state and st.session_state.current_roadmap:
+        roadmap_name = st.session_state.current_roadmap
+        roadmap_details = get_roadmap_details()
+        if roadmap_name in roadmap_details:
+            show_roadmap_page(roadmap_name, roadmap_details[roadmap_name])
+            return
+        else:
+            # Reset if invalid roadmap
+            if "current_roadmap" in st.session_state:
+                del st.session_state.current_roadmap
+    
     st.markdown("<div class='navbar'>🗺️ Career Roadmaps</div>", unsafe_allow_html=True)
     
     roadmaps = {
         "Development & Testing": {
-            "Software Developer": "C:/Users/kanis/TechWayFinder/temp/software_dev.txt",  
-            "Software Tester": "C:/Users/kanis/TechWayFinder/temp/software_tester.txt"
+            "Software Developer": "temp/software_dev.txt",  
+            "Software Tester": "temp/software_tester.txt"
         },
         "Data & AI": {
-            "Data Scientist": "C:/Users/kanis/TechWayFinder/temp/data_sci.txt", 
-            "AI ML Specialist": "C:/Users/kanis/TechWayFinder/temp/AI_ML.txt",  
-            "Database Administrator": "C:/Users/kanis/TechWayFinder/temp/DBA.txt"
+            "Data Scientist": "temp/data_sci.txt", 
+            "AI ML Specialist": "temp/AI_ML.txt",  
+            "Database Administrator": "temp/DBA.txt"
         },
         "Infrastructure & Security": {
-            "Cyber Security Specialist": "C:/Users/kanis/TechWayFinder/temp/cyb_sec.txt",
-            "Information Security Specialist": "C:/Users/kanis/TechWayFinder/temp/IS_specialist.txt",
-            "Networking Engineer": "C:/Users/kanis/TechWayFinder/temp/network_eng.txt",
-            "Hardware Engineer": "C:/Users/kanis/TechWayFinder/temp/hardware_eng.txt"
+            "Cyber Security Specialist": "temp/cyb_sec.txt",
+            "Information Security Specialist": "temp/IS_specialist.txt",
+            "Networking Engineer": "temp/network_eng.txt",
+            "Hardware Engineer": "temp/hardware_eng.txt"
         },
         "Management & Support": {
-            "Business Analyst": "C:/Users/kanis/TechWayFinder/temp/business_analyst.txt"
+            "Business Analyst": "temp/business_analyst.txt"
         }
     }
 
@@ -58,18 +72,12 @@ def show_roadmaps():
                             transition: transform 0.3s ease;
                         '>
                             <h4 style='color: white; margin: 0;'>{path_name}</h4>
-                            <a href='{path_url}' target='_blank' style='
-                                display: inline-block;
-                                margin-top: 10px;
-                                padding: 8px 16px;
-                                background-color: white;
-                                color: {card_color};
-                                text-decoration: none;
-                                border-radius: 5px;
-                                font-weight: 500;
-                            '>View Roadmap</a>
                         </div>
                     """, unsafe_allow_html=True)
+                    
+                    if st.button(f"View {path_name} Roadmap", key=f"btn_{category}_{i}"):
+                        st.session_state.current_roadmap = path_name
+                        st.rerun()
                 
                 # Second item (if exists)
                 if i + 1 < len(paths):
@@ -88,18 +96,12 @@ def show_roadmaps():
                                 transition: transform 0.3s ease;
                             '>
                                 <h4 style='color: white; margin: 0;'>{path_name}</h4>
-                                <a href='{path_url}' target='_blank' style='
-                                    display: inline-block;
-                                    margin-top: 10px;
-                                    padding: 8px 16px;
-                                    background-color: white;
-                                    color: {card_color};
-                                    text-decoration: none;
-                                    border-radius: 5px;
-                                    font-weight: 500;
-                                '>View Roadmap</a>
                             </div>
                         """, unsafe_allow_html=True)
+                        
+                        if st.button(f"View {path_name} Roadmap", key=f"btn_{category}_{i+1}"):
+                            st.session_state.current_roadmap = path_name
+                            st.rerun()
 
     # Updated styling with purple and pink theme
     st.markdown("""
@@ -127,44 +129,11 @@ def show_roadmaps():
             }
             
             .stTabs [aria-selected="true"] {
-                background: linear-gradient(135deg, #5849c4, #D1A1F0) !important;
+                background: linear-gradient(135deg, #   5849c4, #D1A1F0) !important;
                 border-bottom: 3px solid white;
             }
             
-            .stButton button {
-                width: 100%;
-                background: linear-gradient(135deg, #6c5ce7, #E0B0FF) !important;
-                color: white !important;
-                border: none !important;
-                padding: 0.75rem !important;
-                margin-top: 10px;
-                border-radius: 5px;
-                font-weight: 500;
-                transition: all 0.3s ease;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            }
-            
-            .stButton button:hover {
-                background: linear-gradient(135deg, #5849c4, #D1A1F0) !important;
-                transform: translateY(-2px);
-                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            }
-
-            .stTabs [data-baseweb="tab-panel"] {
-                padding: 20px 0;
-            }
-
-            h3 {
-                color: #333;
-                margin-bottom: 20px;
-                text-align: center;
-            }
-
-            /* Hover effect for cards */
-            div[style*="background-color"] {
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-            }
-
+            /* Other styles remain the same */
             div[style*="background-color"]:hover {
                 transform: translateY(-5px);
                 box-shadow: 0 6px 12px rgba(0,0,0,0.15);
@@ -185,3 +154,4 @@ def show_roadmaps():
         </style>
     """, unsafe_allow_html=True)
 
+    
