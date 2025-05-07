@@ -75,9 +75,9 @@ def show_profile_form():
     st.markdown(f"""
         <div style='text-align: center; margin-bottom: 30px;'>
             <img src='data:image/jpeg;base64,{get_base64_from_file("images/logo.jpg")}' style='width: 150px; margin-bottom: 20px;'>
-            <h1 style='color: #6c5ce7; font-family: Montserrat, sans-serif;'>Complete Your Profile</h1>
+            <h1 style='color: #6c5ce7; font-family: Montserrat, sans-serif;'>Your Profile</h1>
             <p style='color: #666; font-family: Poppins, sans-serif;'>
-                Help us personalize your experience by providing more information about your background.
+                Update your profile information to personalize your experience.
             </p>
         </div>
     """, unsafe_allow_html=True)
@@ -85,15 +85,55 @@ def show_profile_form():
     # Get existing profile if available
     user_profile = get_user_profile(st.session_state.user_id)
     
+    # Check if profile exists
+    profile_exists = user_profile is not None
+    
+    # Show appropriate header based on whether profile exists
+    if profile_exists:
+        st.markdown("""
+            <div style='background: linear-gradient(135deg, rgba(108, 92, 231, 0.1), rgba(224, 176, 255, 0.1)); 
+                        padding: 15px; border-radius: 10px; margin-bottom: 20px;'>
+                <h3 style='color: #6c5ce7; margin-bottom: 10px;'>Edit Your Profile</h3>
+                <p style='color: #666;'>
+                    You can update your profile information at any time.
+                </p>
+            </div>
+        """, unsafe_allow_html=True)
+    else:
+        st.markdown("""
+            <div style='background: linear-gradient(135deg, rgba(108, 92, 231, 0.1), rgba(224, 176, 255, 0.1)); 
+                        padding: 15px; border-radius: 10px; margin-bottom: 20px;'>
+                <h3 style='color: #6c5ce7; margin-bottom: 10px;'>Complete Your Profile</h3>
+                <p style='color: #666;'>
+                    Help us personalize your experience by providing more information about your background.
+                </p>
+            </div>
+        """, unsafe_allow_html=True)
+    
+    # Initialize user_profile if it doesn't exist
+    if user_profile is None:
+        user_profile = {
+            "qualification": "",
+            "grade": "",
+            "technical_skills": "",
+            "soft_skills": ""
+        }
+    
     # Create columns for form layout
     col1, col2 = st.columns(2)
     
     with col1:
         # Qualification dropdown
         qualification_options = [
+            "BA",
+            "B.Com",
+            "B.Sc",
             "BCA",
             "BBA",
             "B.Tech",
+            "MA",
+            "M.Com",
+            "M.Sc", 
             "MCA",
             "MBA",
             "M.Tech",
@@ -101,10 +141,15 @@ def show_profile_form():
             "Other(related to IT)"
         ]
         
+        # Find index of current qualification or default to 0
+        qual_index = 0
+        if user_profile["qualification"] in qualification_options:
+            qual_index = qualification_options.index(user_profile["qualification"])
+        
         qualification = st.selectbox(
             "Highest Qualification",
             options=qualification_options,
-            index=qualification_options.index(user_profile["qualification"]) if user_profile and user_profile["qualification"] in qualification_options else 0
+            index=qual_index
         )
         
         # Grade dropdown
@@ -120,10 +165,15 @@ def show_profile_form():
             "Not Applicable"
         ]
         
+        # Find index of current grade or default to 0
+        grade_index = 0
+        if user_profile["grade"] in grade_options:
+            grade_index = grade_options.index(user_profile["grade"])
+        
         grade = st.selectbox(
             "Grade/Performance",
             options=grade_options,
-            index=grade_options.index(user_profile["grade"]) if user_profile and user_profile["grade"] in grade_options else 0
+            index=grade_index
         )
     
     with col2:
@@ -148,7 +198,10 @@ def show_profile_form():
             "Robotics"
         ]
         
-        default_tech = user_profile["technical_skills"].split(",") if user_profile and user_profile["technical_skills"] else []
+        default_tech = user_profile["technical_skills"].split(",") if user_profile["technical_skills"] else []
+        # Remove empty strings
+        default_tech = [skill for skill in default_tech if skill]
+        
         tech_skills = st.multiselect(
             "Technical Skills",
             options=tech_skills_options,
@@ -174,20 +227,26 @@ def show_profile_form():
             "Decision Making"
         ]
         
-        default_soft = user_profile["soft_skills"].split(",") if user_profile and user_profile["soft_skills"] else []
+        default_soft = user_profile["soft_skills"].split(",") if user_profile["soft_skills"] else []
+        # Remove empty strings
+        default_soft = [skill for skill in default_soft if skill]
+        
         soft_skills = st.multiselect(
             "Soft Skills",
             options=soft_skills_options,
             default=default_soft
         )
     
-    # Submit button
-    if st.button("Save Profile", use_container_width=True, type="primary"):
+    # Submit button text changes based on whether profile exists
+    button_text = "Update Profile" if profile_exists else "Save Profile"
+    
+    if st.button(button_text, use_container_width=True, type="primary"):
         tech_skills_str = ",".join(tech_skills)
         soft_skills_str = ",".join(soft_skills)
         
         if update_user_profile(st.session_state.user_id, qualification, grade, tech_skills_str, soft_skills_str):
-            st.success("Profile updated successfully!")
+            success_message = "Profile updated successfully!" if profile_exists else "Profile created successfully!"
+            st.success(success_message)
             st.balloons()
         else:
             st.error("Failed to update profile. Please try again.")

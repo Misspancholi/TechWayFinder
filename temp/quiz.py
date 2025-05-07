@@ -6,7 +6,61 @@ def get_base64_from_file(file_path):
     with open(file_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode('utf-8')
 
+def check_eligibility(user_id):
+    conn = sqlite3.connect('temp/TWF.db', check_same_thread=False)
+    c = conn.cursor()
+    
+    # Check if user_profile table exists
+    c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='user_profile'")
+    if not c.fetchone():
+        conn.close()
+        return False
+    
+    # Check if user has filled the profile form
+    c.execute("SELECT * FROM user_profile WHERE user_id = ?", (user_id,))
+    profile = c.fetchone()
+    conn.close()
+    
+    if not profile:
+        return False
+    
+    # Check if user has an eligible qualification
+    eligible_qualifications = ["BCA", "MCA", "B.Tech", "M.Tech", "Ph.D.", "Other(related to IT)"]
+    # Assuming qualification is stored in the second column (index 1)
+    return profile[1] in eligible_qualifications
+
 def display_quiz():
+    # Check eligibility first
+    if not check_eligibility(st.session_state.user_id):
+        st.markdown(f"""
+            <div style='text-align: center; margin-bottom: 30px;'>
+                <img src='data:image/jpeg;base64,{get_base64_from_file("images/logo.jpg")}' style='width: 150px; margin-bottom: 20px;'>
+                <div style='background: linear-gradient(135deg, rgba(255, 99, 71, 0.1), rgba(255, 99, 71, 0.2)); 
+                            padding: 20px; border-radius: 15px; margin: 20px 0;'>
+                    <h1 style='color: #ff6347; font-family: Montserrat, sans-serif; margin-bottom: 15px;'>
+                        Eligibility Check Failed
+                    </h1>
+                    <p style='color: #666; font-family: Poppins, sans-serif; font-size: 1.1em; margin-bottom: 10px;'>
+                        This quiz is designed for users with IT-related qualifications.
+                    </p>
+                    <p style='color: #666; font-family: Poppins, sans-serif; font-size: 1em;'>
+                        Eligible qualifications: BCA, MCA, B.Tech, M.Tech, Ph.D., or other IT-related degrees.
+                    </p>
+                </div>
+            </div>
+        """, unsafe_allow_html=True)
+        
+        if st.button("Update Your Profile", use_container_width=True, type="primary"):
+            st.session_state.page = "profile"
+            st.rerun()
+            
+        if st.button("Back to Dashboard", use_container_width=True):
+            st.session_state.page = "index"
+            st.rerun()
+            
+        return
+    
+    # Original quiz code continues here
     # Add logo and welcome content at the top
     st.markdown("""
         <div style='text-align: center; margin-bottom: 30px;'>

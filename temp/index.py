@@ -1,11 +1,58 @@
 import streamlit as st
 import base64
+import sqlite3
 
 def get_base64_from_file(file_path):
     with open(file_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode('utf-8')
 
+def check_eligibility(user_id):
+    conn = sqlite3.connect('temp/TWF.db', check_same_thread=False)
+    c = conn.cursor()
+    
+    # Check if user_profile table exists
+    c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='user_profile'")
+    if not c.fetchone():
+        conn.close()
+        return False, None
+    
+    # Check if user has filled the profile form
+    c.execute("SELECT * FROM user_profile WHERE user_id = ?", (user_id,))
+    profile = c.fetchone()
+    conn.close()
+    
+    if not profile:
+        return False, None
+    
+    # Check if user has an eligible qualification
+    eligible_qualifications = ["BCA", "MCA", "B.Tech", "M.Tech", "Ph.D.", "Other(related to IT)"]
+    # Assuming qualification is stored in the second column (index 1)
+    return True, profile[1] in eligible_qualifications
+
+def check_quiz_taken(user_id):
+    conn = sqlite3.connect('temp/TWF.db', check_same_thread=False)
+    c = conn.cursor()
+    
+    # Check if quiz_scores table exists
+    c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='quiz_scores'")
+    if not c.fetchone():
+        conn.close()
+        return False
+    
+    # Check if user has quiz scores
+    c.execute("SELECT * FROM quiz_scores WHERE user_id = ?", (user_id,))
+    scores = c.fetchone()
+    conn.close()
+    
+    return scores is not None
+
 def show_dashboard():
+    # Check if user has completed eligibility form and has eligible qualification
+    profile_completed, has_eligible_qualification = check_eligibility(st.session_state.user_id)
+    
+    # Check if user has taken the quiz
+    quiz_taken = check_quiz_taken(st.session_state.user_id)
+    
     st.markdown("<div class='navbar animated-text'>🌟 Welcome to TechWayFinder</div>", unsafe_allow_html=True)
     
     # Welcome message with custom styling and background
@@ -19,9 +66,41 @@ def show_dashboard():
                 Discover your perfect tech role through our interactive quiz, AI-powered chat assistance, and comprehensive roadmaps.</p>
         </div>
     """.format(st.session_state.get('user_name', 'Guest')), unsafe_allow_html=True)
-    if st.button("Eligibility Test"):
-            st.session_state.page = "profile"
-            st.rerun()
+    
+    # Show eligibility notification if not completed
+    if not profile_completed:
+        st.markdown("""
+            <div style='background: linear-gradient(135deg, rgba(255, 99, 71, 0.1), rgba(255, 99, 71, 0.2)); 
+                        padding: 15px; border-radius: 10px; margin: 20px 0;'>
+                <h3 style='color: #ff6347; margin-bottom: 10px;'>⚠️ Profile Required</h3>
+                <p style='color: #666;'>
+                    Please complete your profile to unlock all features.
+                </p>
+            </div>
+        """, unsafe_allow_html=True)
+    elif not has_eligible_qualification:
+        st.markdown("""
+            <div style='background: linear-gradient(135deg, rgba(255, 184, 0, 0.1), rgba(255, 184, 0, 0.2)); 
+                        padding: 15px; border-radius: 10px; margin: 20px 0;'>
+                <h3 style='color: #ff9800; margin-bottom: 10px;'>⚠️ Qualification Requirement</h3>
+                <p style='color: #666;'>
+                    The quiz is designed for users with IT-related qualifications (BCA, MCA, B.Tech, M.Tech, Ph.D., or other IT-related degrees).
+                </p>
+            </div>
+        """, unsafe_allow_html=True)
+    
+    # Create a row for profile management
+    col_profile1, col_profile2, col_profile3 = st.columns([1, 2, 1])
+    
+    with col_profile2:
+        if profile_completed:
+            if st.button("Edit Your Profile", key="edit_profile_btn", use_container_width=True):
+                st.session_state.page = "profile"
+                st.rerun()
+        else:
+            if st.button("Complete Your Profile", key="eligibility_btn", use_container_width=True):
+                st.session_state.page = "profile"
+                st.rerun()
     
     # Create four columns
     col1, col2, col3, col4 = st.columns(4)
@@ -36,9 +115,17 @@ def show_dashboard():
                 <p>Test your knowledge with our interactive quizzes</p>
             </div>
         """.format(get_base64_from_file("images/quiz.png")), unsafe_allow_html=True)
-        if st.button("Quiz"):
+        
+        # Disable quiz button if eligibility not completed or qualification not eligible
+        if st.button("Quiz", disabled=not (profile_completed and has_eligible_qualification)):
             st.session_state.page = "quiz"
             st.rerun()
+        
+        # Show message if button is disabled
+        if not profile_completed:
+            st.info("Complete your profile to unlock quiz")
+        elif not has_eligible_qualification:
+            st.info("IT qualification required for quiz")
             
     with col2:
         st.markdown("""
@@ -50,9 +137,15 @@ def show_dashboard():
                 <p>Check your performance and progress</p>
             </div>
         """.format(get_base64_from_file("images/result.png")), unsafe_allow_html=True)
-        if st.button("Quiz Results"):
+        
+        # Disable results button if quiz not taken
+        if st.button("Quiz Results", disabled=not quiz_taken):
             st.session_state.page = "results"
             st.rerun()
+        
+        # Show message if button is disabled
+        if not quiz_taken:
+            st.info("Complete the quiz to view results")
             
     with col3:
         st.markdown("""

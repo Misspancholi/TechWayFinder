@@ -109,6 +109,7 @@ elif st.session_state.page == "roadmaps":
     if st.button("Back to Dashboard"):
         st.session_state.page = "index"
         st.rerun()
+    # Back button is handled within the roadmaps module
 
 # Profile Form Page
 elif st.session_state.page == "profile":
