@@ -1,4 +1,4 @@
-🗃️ Database Administrator (DBA)
+🗃️ **Database Administrator (DBA)**
 
 🧩 What They Do:
 They ensure databases run smoothly, securely, and efficiently.

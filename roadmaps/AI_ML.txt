@@ -1,5 +1,5 @@
 
-🧠 AI/ML Specialist (Artificial Intelligence / Machine Learning)
+🧠 **AI/ML Specialist (Artificial Intelligence / Machine Learning)**
 
 🧩 What They Do:
 AI/ML Specialists design systems that learn from data and make intelligent decisions. This includes everything from recommending videos on YouTube to enabling self-driving cars.
