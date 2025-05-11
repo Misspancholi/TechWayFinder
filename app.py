@@ -7,6 +7,7 @@ import hashlib
 import os 
 import random
 import re
+from temp.sidebar import show_sidebar
 
 # Set page config with favicon
 st.set_page_config(

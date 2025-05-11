@@ -1,6 +1,7 @@
 import streamlit as st
 import base64
 import sqlite3
+from temp.sidebar import show_sidebar
 
 def get_base64_from_file(file_path):
     with open(file_path, "rb") as image_file:
@@ -52,6 +53,9 @@ def show_dashboard():
     
     # Check if user has taken the quiz
     quiz_taken = check_quiz_taken(st.session_state.user_id)
+    
+    # Show sidebar
+    show_sidebar()
     
     st.markdown("<div class='navbar animated-text'>🌟 Welcome to TechWayFinder</div>", unsafe_allow_html=True)
     
@@ -123,9 +127,9 @@ def show_dashboard():
         
         # Show message if button is disabled
         if not profile_completed:
-            st.info("Complete your profile to unlock quiz")
+            st.error("Complete your profile to unlock quiz")
         elif not has_eligible_qualification:
-            st.info("IT qualification required for quiz")
+            st.error("IT qualification required for quiz")
             
     with col2:
         st.markdown("""
@@ -145,7 +149,7 @@ def show_dashboard():
         
         # Show message if button is disabled
         if not quiz_taken:
-            st.info("Complete the quiz to view results")
+            st.error("Complete the quiz to view results")
             
     with col3:
         st.markdown("""
@@ -177,16 +181,16 @@ def show_dashboard():
     
    
         
-    # Logout button in a centered container
-    st.markdown("<div style='text-align: center; margin-top: 20px;'>", unsafe_allow_html=True)
-    if st.button("Logout"):
-        st.session_state.page = "auth"
-        st.session_state.authenticated = False
-        st.rerun()
-    st.markdown("</div>", unsafe_allow_html=True)
-    if st.button("Back to Homepage"):
-        st.session_state.page = "landing"
-        st.rerun()
+    # Remove these buttons as they're now in the sidebar
+    # st.markdown("<div style='text-align: center; margin-top: 20px;'>", unsafe_allow_html=True)
+    # if st.button("Logout"):
+    #     st.session_state.page = "auth"
+    #     st.session_state.authenticated = False
+    #     st.rerun()
+    # st.markdown("</div>", unsafe_allow_html=True)
+    # if st.button("Back to Homepage"):
+    #     st.session_state.page = "landing"
+    #     st.rerun()
     # Add some space before footer
     st.markdown("<br><br><br>", unsafe_allow_html=True)
     

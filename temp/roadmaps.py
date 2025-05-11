@@ -1,8 +1,12 @@
 import streamlit as st
 import os
 from temp.roadmap_pages import show_roadmap_page, get_roadmap_details
+from temp.sidebar import show_sidebar
 
 def show_roadmaps():
+    # Show sidebar
+    show_sidebar()
+    
     # Check if we need to show a specific roadmap
     if "current_roadmap" in st.session_state and st.session_state.current_roadmap:
         roadmap_name = st.session_state.current_roadmap

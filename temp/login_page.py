@@ -32,7 +32,18 @@ def signup_user(name, email, age, password):
         c.execute('INSERT INTO users (name, email, age, password) VALUES (?, ?, ?, ?)', 
                  (name, email, age, hashed_password))
         conn.commit()
+        
+        # Get the user_id of the newly created user
+        c.execute('SELECT user_id FROM users WHERE email=?', (email,))
+        user_id = c.fetchone()[0]
         conn.close()
+        
+        # Set session state variables to log in the user
+        st.session_state.user_id = user_id
+        st.session_state.page = "index"
+        st.session_state.authenticated = True
+        st.session_state.user_name = name
+        
         return True
     except sqlite3.IntegrityError:
         conn.close()
@@ -137,8 +148,7 @@ def show_auth_page():
                     else:
                         if signup_user(new_fullname, new_email, new_age, new_password):
                             st.success("User created successfully")
-                            st.session_state.auth_mode = 'login'
-                            st.rerun()
+                            st.rerun()  # This will refresh the page and take user to dashboard
                         else:
                             st.error("User already exists")
     

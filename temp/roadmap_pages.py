@@ -1,5 +1,6 @@
 import streamlit as st
 import os
+from temp.sidebar import show_sidebar
 
 def display_roadmap_content(file_path):
     """Display the content of a roadmap file with proper formatting"""
@@ -28,8 +29,16 @@ def display_roadmap_content(file_path):
         st.error(f"Error loading roadmap: {str(e)}")
 
 def show_roadmap_page(roadmap_name, file_path):
-    """Display a specific roadmap page"""
-    st.markdown(f"<div class='navbar'>🗺️ {roadmap_name} Roadmap</div>", unsafe_allow_html=True)
+    # Show sidebar
+    show_sidebar()
+    
+    # Add roadmap-specific navigation
+    with st.sidebar:
+        if st.button("Back to Roadmaps", key="sidebar_roadmaps"):
+            # Clear the current roadmap from session state
+            if "current_roadmap" in st.session_state:
+                del st.session_state.current_roadmap
+            st.rerun()
     
     # Header section
     st.markdown(f"""
@@ -103,4 +112,7 @@ def get_roadmap_details():
         "Hardware Engineer": "roadmaps/hardware_eng.txt",
         "Business Analyst": "roadmaps/business_analyst.txt"
     }
+
+
+
 

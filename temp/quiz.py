@@ -1,6 +1,7 @@
 import streamlit as st
 import sqlite3
 import base64
+from temp.sidebar import show_sidebar
 
 def get_base64_from_file(file_path):
     with open(file_path, "rb") as image_file:
@@ -30,6 +31,9 @@ def check_eligibility(user_id):
     return profile[1] in eligible_qualifications
 
 def display_quiz():
+    # Show sidebar
+    show_sidebar()
+    
     # Check eligibility first
     if not check_eligibility(st.session_state.user_id):
         st.markdown(f"""

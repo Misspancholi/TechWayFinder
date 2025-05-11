@@ -1,6 +1,7 @@
 import streamlit as st
 import sqlite3
 import base64
+from temp.sidebar import show_sidebar
 
 def get_base64_from_file(file_path):
     with open(file_path, "rb") as image_file:
@@ -71,6 +72,9 @@ def get_user_profile(user_id):
     return None
 
 def show_profile_form():
+    # Show sidebar
+    show_sidebar()
+    
     # Header with logo
     st.markdown(f"""
         <div style='text-align: center; margin-bottom: 30px;'>
@@ -297,3 +301,7 @@ def show_profile_form():
         }
         </style>
     """, unsafe_allow_html=True)
+
+
+
+

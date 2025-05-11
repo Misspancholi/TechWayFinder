@@ -3,6 +3,7 @@ import pickle
 import numpy as np
 import sqlite3
 import base64
+from temp.sidebar import show_sidebar
 
 def get_base64_from_file(file_path):
     with open(file_path, "rb") as image_file:
@@ -58,6 +59,9 @@ def check_quiz_taken(user_id):
     return scores is not None
 
 def results():
+    # Show sidebar
+    show_sidebar()
+    
     # Load CSS
     st.markdown(f"<style>{load_css('static/results_styles.css')}</style>", unsafe_allow_html=True)
     

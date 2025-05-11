@@ -1,5 +1,6 @@
 from langchain_openai.chat_models import ChatOpenAI
 import streamlit as st
+from temp.sidebar import show_sidebar
 
 def init_chat_client():
     """Initialize chat client using Streamlit secrets"""
@@ -18,6 +19,9 @@ def init_chat_client():
         return None
 
 def chatbot():
+    # Show sidebar
+    show_sidebar()
+    
     client = init_chat_client()
     
     if "messages" not in st.session_state:
