@@ -74,10 +74,7 @@ elif st.session_state.page == "index":
 elif st.session_state.page == "quiz":
     from temp.quiz import display_quiz  
     display_quiz()
-    if st.button("Back to Dashboard"):
-        st.session_state.page = "index"
-        st.rerun()
-
+    
 
 # Quiz Results Page
 elif st.session_state.page == "results":
@@ -86,9 +83,7 @@ elif st.session_state.page == "results":
     st.subheader("Based on your Performance")
     from temp.result import results
     results()
-    if st.button("Back to Dashboard"):
-        st.session_state.page = "index"
-        st.rerun()
+    
     st.markdown("</div>", unsafe_allow_html=True)
 
 # Chatbot Page
@@ -96,20 +91,19 @@ elif st.session_state.page == "chatbot":
     st.subheader("Ask me anything!")
     from temp.chat import chatbot
     chatbot()
-    dashbt = st.sidebar.button("Back to Dashboard")
-    if dashbt:
-        st.session_state.page = "index"
-        # clearing messages without changing system role content
-        st.session_state.messages=[st.session_state.messages[0]]
-        st.rerun()
+    # Remove the duplicate dashboard button
+    # dashbt = st.sidebar.button("Back to Dashboard", key="chatbot_back_to_dashboard")
+    # if dashbt:
+    #     st.session_state.page = "index"
+    #     # clearing messages without changing system role content
+    #     st.session_state.messages=[st.session_state.messages[0]]
+    #     st.rerun()
 
 # Roadmaps Page
 elif st.session_state.page == "roadmaps":
     from temp.roadmaps import show_roadmaps
     show_roadmaps()
-    if st.button("Back to Dashboard"):
-        st.session_state.page = "index"
-        st.rerun()
+    
     # Back button is handled within the roadmaps module
 
 # Profile Form Page

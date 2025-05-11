@@ -27,21 +27,34 @@ def show_sidebar():
         # Navigation section
         st.markdown("### Navigation")
         
-        # Common navigation buttons
-        if st.button("Dashboard", key="sidebar_dashboard"):
+        # Common navigation buttons with unique keys based on current page
+        current_page = st.session_state.page
+        
+        # Dashboard button - disabled if already on dashboard
+        if st.button("Dashboard", 
+                    key=f"sidebar_dashboard_{current_page}", 
+                    disabled=(current_page == "index")):
             st.session_state.page = "index"
             st.rerun()
             
-        if st.button("Profile", key="sidebar_profile"):
+        # Profile button - disabled if already on profile
+        if st.button("Profile", 
+                    key=f"sidebar_profile_{current_page}", 
+                    disabled=(current_page == "profile")):
             st.session_state.page = "profile"
             st.rerun()
             
-        if st.button("Back to Homepage", key="sidebar_homepage"):
+        # Homepage button - disabled if already on landing
+        if st.button("Back to Homepage", 
+                    key=f"sidebar_homepage_{current_page}", 
+                    disabled=(current_page == "landing")):
             st.session_state.page = "landing"
             st.rerun()
             
         if st.session_state.get("authenticated", False):
-            if st.button("Logout", key="sidebar_logout"):
+            if st.button("Logout", 
+                        key=f"sidebar_logout_{current_page}"):
                 st.session_state.page = "auth"
                 st.session_state.authenticated = False
                 st.rerun()
+

@@ -254,12 +254,7 @@ def show_profile_form():
             st.balloons()
         else:
             st.error("Failed to update profile. Please try again.")
-    
-    # Back button
-    if st.button("Back to Dashboard", use_container_width=True):
-        st.session_state.page = "index"
-        st.rerun()
-    
+            
     # Add custom styling
     st.markdown("""
         <style>
