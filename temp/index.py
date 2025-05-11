@@ -97,14 +97,43 @@ def show_dashboard():
     col_profile1, col_profile2, col_profile3 = st.columns([1, 2, 1])
     
     with col_profile2:
+        # Add global CSS for buttons
+        st.markdown("""
+            <style>
+            /* Override primary button style for green */
+            div[data-testid="element-container"]:has(button[key="edit_profile_btn"]) button {
+                background-color: #28a745 !important;
+                color: white !important;
+                box-shadow: 0 4px 6px rgba(40, 167, 69, 0.2) !important;
+            }
+            
+            /* Override primary button style for red */
+            div[data-testid="element-container"]:has(button[key="eligibility_btn"]) button {
+                background-color: #dc3545 !important;
+                color: white !important;
+                box-shadow: 0 4px 6px rgba(220, 53, 69, 0.2) !important;
+            }
+            </style>
+        """, unsafe_allow_html=True)
+        
+        # Create a container for the button
+        button_container = st.container()
+        
+        # Use different button types based on profile completion
         if profile_completed:
-            if st.button("Edit Your Profile", key="edit_profile_btn", use_container_width=True):
-                st.session_state.page = "profile"
-                st.rerun()
+            # Use primary button type with CSS override for green
+            with button_container:
+                if st.button("Edit Your Profile", key="edit_profile_btn", 
+                           use_container_width=True, type="primary"):
+                    st.session_state.page = "profile"
+                    st.rerun()
         else:
-            if st.button("Complete Your Profile", key="eligibility_btn", use_container_width=True):
-                st.session_state.page = "profile"
-                st.rerun()
+            # Use primary button type with CSS override for red
+            with button_container:
+                if st.button("Complete Your Profile", key="eligibility_btn", 
+                           use_container_width=True, type="primary"):
+                    st.session_state.page = "profile"
+                    st.rerun()
     
     # Create four columns
     col1, col2, col3, col4 = st.columns(4)

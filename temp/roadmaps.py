@@ -1,5 +1,6 @@
 import streamlit as st
 import os
+import base64
 from temp.roadmap_pages import show_roadmap_page, get_roadmap_details
 from temp.sidebar import show_sidebar
 
@@ -14,10 +15,60 @@ def show_roadmaps():
         if roadmap_name in roadmap_details:
             # Don't call show_roadmap_page directly, instead render the content here
             # to avoid calling show_sidebar() twice
+            
+            # Get base64 encoded image for background
+            def get_base64_from_file(file_path):
+                with open(file_path, "rb") as f:
+                    return base64.b64encode(f.read()).decode()
+                    
+            bg_image = get_base64_from_file("images/pixel1.jpg")
+
+            # Create the background container with CSS
             st.markdown(f"""
-                <div style='text-align: center; padding: 20px 0;'>
-                    <h1 style='color: #333;'>{roadmap_name}</h1>
-                    <p style='color: #666;'>Comprehensive career path and skill development guide</p>
+                <style>
+                .roadmap-header {{
+                    text-align: center;
+                    padding: 40px 0;
+                    background-image: url("data:image/jpeg;base64,{bg_image}");
+                    background-size: cover;
+                    background-position: center;
+                    position: relative;
+                    border-radius: 15px;
+                    margin-bottom: 20px;
+                    overflow: hidden;
+                }}
+                .roadmap-header:before {{
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: rgba(255, 255, 255, 0.6);  /* Adjust opacity here (0.0 to 1.0) */
+                    backdrop-filter: blur(3px);  /* Adjust blur amount here */
+                    -webkit-backdrop-filter: blur(3px);  /* Same value as above for Safari */
+                }}
+                .roadmap-header-content {{
+                    position: relative;
+                    z-index: 1;
+                }}
+                .roadmap-title {{
+                    color: #333;
+                    font-weight: 700;
+                }}
+                .roadmap-subtitle {{
+                    color: #666;
+                }}
+                </style>
+            """, unsafe_allow_html=True)
+
+            # Create the header with separate HTML
+            st.markdown(f"""
+                <div class="roadmap-header">
+                    <div class="roadmap-header-content">
+                        <h1 class="roadmap-title">{roadmap_name}</h1>
+                        <p class="roadmap-subtitle">Comprehensive career path and skill development guide</p>
+                    </div>
                 </div>
             """, unsafe_allow_html=True)
             
@@ -100,7 +151,63 @@ def show_roadmaps():
             if "current_roadmap" in st.session_state:
                 del st.session_state.current_roadmap
     
-    st.markdown("<div class='navbar'>🗺️ Career Roadmaps</div>", unsafe_allow_html=True)
+    # For the main roadmaps listing page
+    else:
+        # Get base64 encoded image for background
+        def get_base64_from_file(file_path):
+            with open(file_path, "rb") as f:
+                return base64.b64encode(f.read()).decode()
+            
+        bg_image = get_base64_from_file("images/pixel1.jpg")
+        
+        # Create the background container with CSS
+        st.markdown(f"""
+            <style>
+            .roadmap-header {{
+                text-align: center;
+                padding: 40px 0;
+                background-image: url("data:image/jpeg;base64,{bg_image}");
+                background-size: cover;
+                background-position: center;
+                position: relative;
+                border-radius: 15px;
+                margin-bottom: 20px;
+                overflow: hidden;
+            }}
+            .roadmap-header:before {{
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(255, 255, 255, 0.7);
+                backdrop-filter: blur(3px);
+                -webkit-backdrop-filter: blur(10px);
+            }}
+            .roadmap-header-content {{
+                position: relative;
+                z-index: 1;
+            }}
+            .roadmap-title {{
+                color: #333;
+                font-weight: 700;
+            }}
+            .roadmap-subtitle {{
+                color: #666;
+            }}
+            </style>
+        """, unsafe_allow_html=True)
+
+        # Create the header with separate HTML
+        st.markdown(f"""
+            <div class="roadmap-header">
+                <div class="roadmap-header-content">
+                    <h1 class="roadmap-title">🗺️ Career Roadmaps</h1>
+                    <p class="roadmap-subtitle">Explore learning paths for different tech roles</p>
+                </div>
+            </div>
+        """, unsafe_allow_html=True)
     
     roadmaps = {
         "Development & Testing": {
