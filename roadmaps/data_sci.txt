@@ -1,4 +1,4 @@
-📈 Data Scientist
+📈 **Data Scientist**
 
 🧩 What They Do:
 They extract knowledge from data using algorithms, statistics, and machine learning.

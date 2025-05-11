@@ -1,4 +1,4 @@
-🌐 Networking Engineer
+🌐 **Networking Engineer**
 
 🧩 What They Do:
 Networking Engineers design, implement, and maintain computer networks—LAN, WAN, VPN, etc.

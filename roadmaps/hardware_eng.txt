@@ -1,4 +1,4 @@
-🖥️ Hardware Engineer
+🖥️ **Hardware Engineer**
 
 🧩 What They Do:
 They design, build, and test physical components of computers and embedded systems.
